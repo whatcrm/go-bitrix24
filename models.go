@@ -47,12 +47,6 @@ type RequestParams struct {
 	EventType     string `json:"event_type,omitempty"` // offline online
 	AuthConnector string `json:"auth_connector,omitempty"`
 	// TODO Options
-
-	// UserField Params
-	FieldName     string `json:"FIELD_NAME,omitempty"`
-	EditFormLabel string `json:"EDIT_FORM_LABEL,omitempty"`
-	UserTypeID    string `json:"USER_TYPE_ID,omitempty"`
-	UserFieldType string `json:"USERFIELD_TYPE,omitempty"`
 }
 
 type ErrorResponse struct {

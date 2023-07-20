@@ -2,6 +2,7 @@ package b24
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/whatcrm/go-bitrix24/models"
 )
 
 func (c *Create) TokenUPD(refreshToken string) (t *UpdatedTokens, err error) {
@@ -88,43 +89,38 @@ func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
 	return
 }
 
-func (c *Create) UserFieldTypeAdd(userTypeID, handler, title, description string) (out MainResult, err error) {
+func (c *Create) UserFieldTypeAdd(in *models.UserField) (out MainResult, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldTypeAdd,
-		In: &RequestParams{
-			UserTypeID:  userTypeID,
-			Handler:     handler,
-			Title:       title,
-			Description: description,
-		},
-		Out:    &out,
-		Params: nil,
+		In:      &in,
+		Out:     &out,
+		Params:  nil,
 	}
 
 	err = c.b24.callMethod(options)
 	return
 }
 
-func (c *Create) UserFieldAdd(base, userTypeID, fieldName, efl, description string) (out MainResult, err error) {
-	if base != CrmContactUserField && base != CrmLeadUserField &&
-		base != CrmDealUserField && base != CrmCompanyUserField {
-		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url")
-	}
+func (c *Create) UserFieldAdd(in *models.UserField, base ...string) (out MainResult, err error) {
+	for _, v := range base {
+		if v != CrmContactUserField && v != CrmLeadUserField &&
+			v != CrmDealUserField && v != CrmCompanyUserField {
+			return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+v)
+		}
 
-	options := callMethodOptions{
-		Method:  fiber.MethodPost,
-		BaseURL: base,
-		In: &RequestParams{
-			UserTypeID:    userTypeID,
-			FieldName:     fieldName,
-			EditFormLabel: efl,
-			Description:   description,
-		},
-		Out:    &out,
-		Params: nil,
-	}
+		options := callMethodOptions{
+			Method:  fiber.MethodPost,
+			BaseURL: v,
+			In:      &in,
+			Out:     &out,
+			Params:  nil,
+		}
 
-	err = c.b24.callMethod(options)
+		err = c.b24.callMethod(options)
+		if err != nil {
+			return
+		}
+	}
 	return
 }
