@@ -47,6 +47,29 @@ type RequestParams struct {
 	EventType     string `json:"event_type,omitempty"` // offline online
 	AuthConnector string `json:"auth_connector,omitempty"`
 	// TODO Options
+
+	// Robot params + handler
+	Code       string      `json:"CODE"`
+	AuthUserID int         `json:"AUTH_USER_ID"`
+	Name       string      `json:"NAME"`
+	Properties *Properties `json:"PROPERTIES"`
+}
+
+type Properties struct {
+	Select *Select `json:"select"`
+}
+
+type Select struct {
+	Default string   `json:"Default"`
+	Name    string   `json:"Name"`
+	Type    string   `json:"Type"`
+	Options *Options `json:"Options"`
+}
+
+type Options struct {
+	Work  string `json:"work"`
+	Mob   string `json:"mob"`
+	Other string `json:"other"`
 }
 
 type ErrorResponse struct {
