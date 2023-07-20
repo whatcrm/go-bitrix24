@@ -68,6 +68,7 @@ type Select struct {
 
 type Options struct {
 	Work  string `json:"work"`
+	Home  string `json:"home"`
 	Mob   string `json:"mob"`
 	Other string `json:"other"`
 }
