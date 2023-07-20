@@ -87,3 +87,44 @@ func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
 	err = b24.callMethod(options)
 	return
 }
+
+func (c *Create) UserFieldTypeAdd(userTypeID, handler, title, description string) (out MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: UserFieldTypeAdd,
+		In: &RequestParams{
+			UserTypeID:  userTypeID,
+			Handler:     handler,
+			Title:       title,
+			Description: description,
+		},
+		Out:    &out,
+		Params: nil,
+	}
+
+	err = c.b24.callMethod(options)
+	return
+}
+
+func (c *Create) UserFieldAdd(base, userTypeID, fieldName, efl, description string) (out MainResult, err error) {
+	if base != CrmContactUserField && base != CrmLeadUserField &&
+		base != CrmDealUserField && base != CrmCompanyUserField {
+		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url")
+	}
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: base,
+		In: &RequestParams{
+			UserTypeID:    userTypeID,
+			FieldName:     fieldName,
+			EditFormLabel: efl,
+			Description:   description,
+		},
+		Out:    &out,
+		Params: nil,
+	}
+
+	err = c.b24.callMethod(options)
+	return
+}
