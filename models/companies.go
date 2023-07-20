@@ -13,14 +13,38 @@ type CompanyList struct {
 }
 
 type CompanyResult struct {
-	ID                    string      `json:"ID"`
-	CompanyType           string      `json:"COMPANY_TYPE"`
+	ID    string `json:"ID"`
+	Phone []struct {
+		ID        string `json:"ID"`
+		ValueType string `json:"VALUE_TYPE"`
+		Value     string `json:"VALUE"`
+		TypeID    string `json:"TYPE_ID"`
+	} `json:"PHONE"`
+	Email []struct {
+		ID        string `json:"ID"`
+		ValueType string `json:"VALUE_TYPE"`
+		Value     string `json:"VALUE"`
+		TypeID    string `json:"TYPE_ID"`
+	} `json:"EMAIL"`
+	Web []struct {
+		ID        string `json:"ID"`
+		ValueType string `json:"VALUE_TYPE"`
+		Value     string `json:"VALUE"`
+		TypeID    string `json:"TYPE_ID"`
+	} `json:"WEB"`
+	IM []struct {
+		ID        string `json:"ID"`
+		ValueType string `json:"VALUE_TYPE"`
+		Value     string `json:"VALUE"`
+		TypeID    string `json:"TYPE_ID"`
+	} `json:"IM"`
 	Title                 string      `json:"TITLE"`
+	CompanyType           string      `json:"COMPANY_TYPE"`
 	Logo                  interface{} `json:"LOGO"`
 	LeadID                interface{} `json:"LEAD_ID"`
 	HasPhone              string      `json:"HAS_PHONE"`
 	HasEmail              string      `json:"HAS_EMAIL"`
-	HasIMOL               string      `json:"HAS_IMOL"`
+	HasImol               string      `json:"HAS_IMOL"`
 	AssignedByID          string      `json:"ASSIGNED_BY_ID"`
 	CreatedByID           string      `json:"CREATED_BY_ID"`
 	ModifyByID            string      `json:"MODIFY_BY_ID"`
@@ -63,5 +87,4 @@ type CompanyResult struct {
 	UtmTerm               interface{} `json:"UTM_TERM"`
 	LastActivityBy        string      `json:"LAST_ACTIVITY_BY"`
 	LastActivityTime      time.Time   `json:"LAST_ACTIVITY_TIME"`
-	UfCrmWhatCRM          string      `json:"UF_CRM_WHATCRM"`
 }
