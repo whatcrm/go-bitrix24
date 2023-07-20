@@ -4,13 +4,28 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (c *Create) RobotAdd(in *interface{}) (out *MainResult, err error) {
+func (c *Create) Robots(in any) (out *MainResult, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: BizprocRobotAdd,
 		In:      &in,
 		Out:     &out,
 		Params:  nil,
+	}
+
+	err = c.b24.callMethod(options)
+	return
+}
+
+func (c *Delete) Robots(code string) (out *MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: BizprocRobotDel,
+		In: &RequestParams{
+			Code: code,
+		},
+		Out:    &out,
+		Params: nil,
 	}
 
 	err = c.b24.callMethod(options)
