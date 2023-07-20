@@ -1,0 +1,73 @@
+package b24
+
+import "github.com/whatcrm/go-bitrix24/models"
+
+// Handler with main data to work with amoCRM
+
+type API struct {
+	ClientID     string
+	ClientSecret string
+	Domain       string
+	Auth         string
+	Debug        bool
+}
+
+// Struct to send a data to amoCRM in order to get the tokens
+
+// The tokens' struct
+
+type UpdatedTokens struct {
+	AccessToken    string `json:"access_token"`
+	ClientEndpoint string `json:"client_endpoint"`
+	Domain         string `json:"domain"`
+	ExpiresIn      int    `json:"expires_in"`
+	MemberID       string `json:"member_id"`
+	RefreshToken   string `json:"refresh_token"`
+	Scope          string `json:"scope"`
+	ServerEndpoint string `json:"server_endpoint"`
+	Status         string `json:"status"`
+}
+
+type RequestParams struct {
+	// Update Token
+	RefreshToken string `json:"refresh_token,omitempty"`
+
+	// Entity ID
+	ID string `json:"ID,omitempty"`
+
+	// Regular Params
+	Title       string `json:"TITLE,omitempty"`
+	Description string `json:"DESCRIPTION,omitempty"`
+	Placement   string `json:"PLACEMENT,omitempty"`
+	Handler     string `json:"HANDLER,omitempty"`
+
+	// Event
+	Event         string `json:"EVENT,omitempty"`
+	AuthType      int    `json:"auth_type,omitempty"`
+	EventType     string `json:"event_type,omitempty"` // offline online
+	AuthConnector string `json:"auth_connector,omitempty"`
+	// TODO Options
+
+	// UserField Params
+	FieldName     string `json:"FIELD_NAME,omitempty"`
+	EditFormLabel string `json:"EDIT_FORM_LABEL,omitempty"`
+	UserTypeID    string `json:"USER_TYPE_ID,omitempty"`
+	UserFieldType string `json:"USERFIELD_TYPE,omitempty"`
+}
+
+type ErrorResponse struct {
+	Error            string `json:"error"`
+	ErrorDescription string `json:"error_description"`
+}
+
+type MainResult struct {
+	Result bool        `json:"result"`
+	Time   models.Time `json:"time"`
+}
+
+type UnBind struct {
+	Result struct {
+		Count int `json:"count"`
+	} `json:"result"`
+	Time models.Time `json:"time"`
+}
