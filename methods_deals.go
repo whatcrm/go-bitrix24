@@ -5,35 +5,34 @@ import (
 	"github.com/whatcrm/go-bitrix24/models"
 )
 
-func (c *Get) Leads(id string) (lead []models.LeadResult, err error) {
+func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 	c.b24.log("GetLead request is started...")
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
-		BaseURL: CrmLeadGet,
+		BaseURL: CrmDealGet,
 		In: &RequestParams{
 			ID: id,
 		},
-		Out:    &models.Lead{},
+		Out:    &models.Deal{},
 		Params: nil,
 	}
 
 	if id != "" {
-		// ID exists
 		if err = c.b24.callMethod(options); err != nil {
 			return
 		}
-		lead = []models.LeadResult{options.Out.(*models.Lead).Result}
+		out = []models.DealResult{options.Out.(*models.Deal).Result}
 	}
 
 	if id == "" {
 		options.In = nil
-		options.BaseURL = CrmLeadList
-		options.Out = &models.LeadList{}
+		options.BaseURL = CrmDealList
+		options.Out = &models.CompanyList{}
 		if err = c.b24.callMethod(options); err != nil {
 			return
 		}
-		lead = options.Out.(*models.LeadList).Result
+		out = options.Out.(*models.DealList).Result
 	}
 
 	c.b24.log("returning the struct...")

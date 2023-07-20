@@ -12,8 +12,8 @@ const (
 
 	clientID     = "app.647db175212ef1.23413044"
 	clientSecret = "8DfQWjTSKWqB631Dk3ycyW3QawvAXeWKfhgfQfd8blJz6zdVqV"
-	domain       = "b24-0kwfc0.bitrix24.ru"
-	auth         = "cfd3b86400645fee0065234c00000001302a0708c997494713f8f3096073da75a4a9d7"
+	domain       = "b24-jh8et8.bitrix24.ru"
+	auth         = "0119b96400645fee0065854e00000001302a0751f64bf061a7f786040aa08917c5bd4b"
 )
 
 func main() {
@@ -27,9 +27,10 @@ func server() {
 }
 
 func handler(ctx *fiber.Ctx) error {
+	log.Println(domain)
 	b24 := goBX24.NewAPI(clientID, clientSecret)
 
-	if err := b24.SetOptions(domain, auth, false); err != nil {
+	if err := b24.SetOptions(domain, auth, true); err != nil {
 		return err
 	}
 

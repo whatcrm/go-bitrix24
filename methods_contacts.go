@@ -9,17 +9,14 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactGet,
-		In:      nil,
-		Out:     &models.Contact{},
-		Params:  nil,
+		In: &RequestParams{
+			ID: contactID,
+		},
+		Out:    &models.Contact{},
+		Params: nil,
 	}
 
 	if contactID != "" {
-		p := RequestParams{
-			ID: contactID,
-		}
-
-		options.In = &p
 		if err = c.b24.callMethod(options); err != nil {
 			return
 		}
@@ -27,6 +24,7 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 	}
 
 	if contactID == "" {
+		options.In = nil
 		options.BaseURL = CrmContactList
 		options.Out = &models.ContactList{}
 		if err = c.b24.callMethod(options); err != nil {

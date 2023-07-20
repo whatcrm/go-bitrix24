@@ -5,19 +5,18 @@ import (
 	"github.com/whatcrm/go-bitrix24/models"
 )
 
-func (c *Get) Companies(companyID string, params *RequestParams) (out []models.CompanyResult, err error) {
-	c.b24.log("CustomersMode request is started...")
-
+func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 	options := callMethodOptions{
-		Method:  fiber.MethodGet,
+		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyGet,
-		In:      nil,
-		Out:     &models.Company{},
-		Params:  params,
+		In: &RequestParams{
+			ID: id,
+		},
+		Out:    &models.Company{},
+		Params: nil,
 	}
 
-	if companyID != "" {
-		options.BaseURL += "/" + companyID
+	if id != "" {
 		if err = c.b24.callMethod(options); err != nil {
 			return
 		}
@@ -25,7 +24,8 @@ func (c *Get) Companies(companyID string, params *RequestParams) (out []models.C
 		out = []models.CompanyResult{options.Out.(*models.Company).Result}
 	}
 
-	if companyID == "" {
+	if id == "" {
+		options.In = nil
 		options.BaseURL = CrmCompanyList
 		options.Out = &models.CompanyList{}
 		if err = c.b24.callMethod(options); err != nil {
@@ -33,8 +33,6 @@ func (c *Get) Companies(companyID string, params *RequestParams) (out []models.C
 		}
 		out = options.Out.(*models.CompanyList).Result
 	}
-
-	c.b24.log("returning the struct...")
 	return
 }
 
