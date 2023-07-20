@@ -13,21 +13,21 @@ type LeadList struct {
 type LeadResult struct {
 	ID                  string      `json:"ID"`
 	Title               string      `json:"TITLE"`
-	Honorific           interface{} `json:"HONORIFIC"`
-	Name                interface{} `json:"NAME"`
-	SecondName          interface{} `json:"SECOND_NAME"`
-	LastName            interface{} `json:"LAST_NAME"`
-	CompanyTitle        interface{} `json:"COMPANY_TITLE"`
-	CompanyID           interface{} `json:"COMPANY_ID"`
+	Honorific           string      `json:"HONORIFIC"`
+	Name                string      `json:"NAME"`
+	SecondName          string      `json:"SECOND_NAME"`
+	LastName            string      `json:"LAST_NAME"`
+	CompanyTitle        string      `json:"COMPANY_TITLE"`
+	CompanyID           string      `json:"COMPANY_ID"`
 	ContactID           string      `json:"CONTACT_ID"`
 	IsReturnCustomer    string      `json:"IS_RETURN_CUSTOMER"`
 	BirthDate           string      `json:"BIRTHDATE"`
 	SourceID            string      `json:"SOURCE_ID"`
-	SourceDescription   interface{} `json:"SOURCE_DESCRIPTION"`
+	SourceDescription   string      `json:"SOURCE_DESCRIPTION"`
 	StatusID            string      `json:"STATUS_ID"`
-	StatusDescription   interface{} `json:"STATUS_DESCRIPTION"`
-	Post                interface{} `json:"POST"`
-	Comments            interface{} `json:"COMMENTS"`
+	StatusDescription   string      `json:"STATUS_DESCRIPTION"`
+	Post                string      `json:"POST"`
+	Comments            string      `json:"COMMENTS"`
 	CurrencyID          string      `json:"CURRENCY_ID"`
 	Opportunity         string      `json:"OPPORTUNITY"`
 	IsManualOpportunity string      `json:"IS_MANUAL_OPPORTUNITY"`
