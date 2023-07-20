@@ -13,31 +13,11 @@ type CompanyList struct {
 }
 
 type CompanyResult struct {
-	ID    string `json:"ID"`
-	Phone []struct {
-		ID        string `json:"ID"`
-		ValueType string `json:"VALUE_TYPE"`
-		Value     string `json:"VALUE"`
-		TypeID    string `json:"TYPE_ID"`
-	} `json:"PHONE"`
-	Email []struct {
-		ID        string `json:"ID"`
-		ValueType string `json:"VALUE_TYPE"`
-		Value     string `json:"VALUE"`
-		TypeID    string `json:"TYPE_ID"`
-	} `json:"EMAIL"`
-	Web []struct {
-		ID        string `json:"ID"`
-		ValueType string `json:"VALUE_TYPE"`
-		Value     string `json:"VALUE"`
-		TypeID    string `json:"TYPE_ID"`
-	} `json:"WEB"`
-	IM []struct {
-		ID        string `json:"ID"`
-		ValueType string `json:"VALUE_TYPE"`
-		Value     string `json:"VALUE"`
-		TypeID    string `json:"TYPE_ID"`
-	} `json:"IM"`
+	ID                    string      `json:"ID"`
+	Phone                 []PHONE     `json:"PHONE"`
+	Email                 []EMAIL     `json:"EMAIL"`
+	Web                   []WEB       `json:"WEB"`
+	IM                    []IM        `json:"IM"`
 	Title                 string      `json:"TITLE"`
 	CompanyType           string      `json:"COMPANY_TYPE"`
 	Logo                  interface{} `json:"LOGO"`
