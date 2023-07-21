@@ -49,14 +49,23 @@ type RequestParams struct {
 	// TODO Options
 
 	// Robot params + handler
-	Code       string      `json:"CODE"`
-	AuthUserID int         `json:"AUTH_USER_ID"`
-	Name       string      `json:"NAME"`
-	Properties *Properties `json:"PROPERTIES"`
+	Code         string      `json:"CODE"`
+	AuthUserID   int         `json:"AUTH_USER_ID"`
+	Name         string      `json:"NAME"`
+	Properties   *Properties `json:"PROPERTIES"`
+	EventToken   string      `json:"EVENT_TOKEN"`
+	ReturnValues interface{} `json:"RETURN_VALUES"`
 }
 
 type Properties struct {
 	Select *Select `json:"select"`
+	String *String `json:"string"`
+}
+
+type String struct {
+	Name    string `json:"name"`
+	Type    string `json:"type"`
+	Default string `json:"default"`
 }
 
 type Select struct {

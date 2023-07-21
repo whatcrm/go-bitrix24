@@ -37,8 +37,9 @@ const (
 	CrmDealUserField    = "crm.deal.userfield.add"
 	CrmCompanyUserField = "crm.company.userfield.add"
 
-	BizprocRobotAdd = "bizproc.robot.add"
-	BizprocRobotDel = "bizproc.robot.delete"
+	BizprocRobotAdd  = "bizproc.robot.add"
+	BizprocRobotDel  = "bizproc.robot.delete"
+	BizProcEventSend = "bizproc.event.send"
 )
 
 const (

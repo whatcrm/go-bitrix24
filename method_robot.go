@@ -31,3 +31,16 @@ func (c *Delete) Robots(code string) (out *MainResult, err error) {
 	err = c.b24.callMethod(options)
 	return
 }
+
+func (b24 *API) RobotsEventSend(in *RequestParams) (out *MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: BizProcEventSend,
+		In:      in,
+		Out:     &out,
+		Params:  nil,
+	}
+
+	err = b24.callMethod(options)
+	return
+}
