@@ -2,6 +2,7 @@ package b24
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"net/url"
@@ -145,12 +146,12 @@ func errorCheck(body []byte, status int) error {
 		return nil
 	}
 
-	if e.Error == "" {
+	if e.Error == "" && e.ErrorDescription == "" {
 		return nil
 	}
 
 	log.Println("ERROR: ", e)
-	return fiber.NewError(fiber.StatusForbidden, e.Error)
+	return fmt.Errorf(e.Error + " " + e.ErrorDescription)
 }
 
 func (b24 *API) fixDomain() {
