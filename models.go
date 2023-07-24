@@ -56,7 +56,7 @@ type RequestParams struct {
 	EventToken       string      `json:"EVENT_TOKEN,omitempty"`
 	UseSubscription  string      `json:"USE_SUBSCRIPTION,omitempty"`
 	ReturnProperties *Properties `json:"RETURN_PROPERTIES,omitempty"`
-	ReturnValues     *Properties `json:"return_values,omitempty"`
+	ReturnValues     interface{} `json:"return_values,omitempty"`
 }
 
 type Properties struct {
