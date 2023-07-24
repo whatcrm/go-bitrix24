@@ -49,30 +49,41 @@ type RequestParams struct {
 	// TODO Options
 
 	// Robot params + handler
-	Code         string      `json:"CODE"`
-	AuthUserID   int         `json:"AUTH_USER_ID"`
-	Name         string      `json:"NAME"`
-	Properties   *Properties `json:"PROPERTIES"`
-	EventToken   string      `json:"EVENT_TOKEN"`
-	ReturnValues interface{} `json:"RETURN_VALUES"`
+	Code             string      `json:"CODE,omitempty"`
+	AuthUserID       int         `json:"AUTH_USER_ID,omitempty"`
+	Name             string      `json:"NAME,omitempty"`
+	Properties       *Properties `json:"PROPERTIES,omitempty"`
+	EventToken       string      `json:"EVENT_TOKEN,omitempty"`
+	UseSubscription  string      `json:"USE_SUBSCRIPTION,omitempty"`
+	ReturnProperties *Properties `json:"RETURN_PROPERTIES,omitempty"`
+	ReturnValues     *Properties `json:"return_values,omitempty"`
 }
 
 type Properties struct {
-	Select *Select `json:"select"`
-	String *String `json:"string"`
+	Select *Select `json:"select,omitempty"`
+	String *String `json:"string,omitempty"`
 }
 
 type String struct {
+	Name        string `json:"Name"`
+	Type        string `json:"Type"`
+	Default     string `json:"Default,omitempty"`
+	Description string `json:"Description,omitempty"`
+	Required    string `json:"Required,omitempty"`
+	Multiple    string `json:"Multiple,omitempty"`
+}
+
+type Bool struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
-	Default string `json:"default"`
+	Default string `json:"default,omitempty"`
 }
 
 type Select struct {
-	Default string   `json:"Default"`
-	Name    string   `json:"Name"`
-	Type    string   `json:"Type"`
-	Options *Options `json:"Options"`
+	Default string      `json:"Default,omitempty"`
+	Name    string      `json:"Name"`
+	Type    string      `json:"Type"`
+	Options interface{} `json:"Options,omitempty"`
 }
 
 type Options struct {

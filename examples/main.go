@@ -8,12 +8,12 @@ import (
 )
 
 const (
-	contactID = "1"
+	contactID = "5"
 
-	clientID     = "app.clientID"
-	clientSecret = "clientSecret"
-	domain       = "portal.bitrix24.ru"
-	auth         = "authID"
+	clientID     = "app.647db175212ef1.23413044"
+	clientSecret = "8DfQWjTSKWqB631Dk3ycyW3QawvAXeWKfhgfQfd8blJz6zdVqV"
+	domain       = "b24-jh8et8.bitrix24.ru"
+	auth         = "4c08be6400645fee0065854e0000000100000093e132249186df230b02e277ee8adec0"
 )
 
 func main() {
@@ -37,6 +37,9 @@ func handler(ctx *fiber.Ctx) error {
 	admin, _ := b24.IsAdmin()
 	log.Println(admin.Result)
 
-	contacts, _ := b24.Get().Contacts(contactID)
-	return ctx.JSON(contacts)
+	res, err := b24.Get().Contacts(contactID)
+	if err != nil {
+		return err
+	}
+	return ctx.JSON(res)
 }
