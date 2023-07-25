@@ -12,6 +12,10 @@ type LeadList struct {
 
 type LeadResult struct {
 	ID                  string      `json:"ID"`
+	Phone               []PHONE     `json:"phone"`
+	Email               []EMAIL     `json:"EMAIL"`
+	WEB                 []WEB       `json:"WEB"`
+	IM                  []IM        `json:"IM"`
 	Title               string      `json:"TITLE"`
 	Honorific           string      `json:"HONORIFIC"`
 	Name                string      `json:"NAME"`
