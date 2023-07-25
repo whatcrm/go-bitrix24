@@ -1,6 +1,8 @@
 package b24
 
-import "github.com/whatcrm/go-bitrix24/models"
+import (
+	"github.com/whatcrm/go-bitrix24/models"
+)
 
 // Handler with main data to work with amoCRM
 
@@ -57,6 +59,8 @@ type RequestParams struct {
 	UseSubscription  string      `json:"USE_SUBSCRIPTION,omitempty"`
 	ReturnProperties *Properties `json:"RETURN_PROPERTIES,omitempty"`
 	ReturnValues     interface{} `json:"RETURN_VALUES,omitempty"`
+
+	ModuleID string `json:"moduleId"`
 }
 
 type Properties struct {
@@ -101,6 +105,32 @@ type ErrorResponse struct {
 type MainResult struct {
 	Result bool        `json:"result"`
 	Time   models.Time `json:"time"`
+}
+
+type UserfieldListResult struct {
+	Result []UR        `json:"result"`
+	Total  int         `json:"total"`
+	Time   models.Time `json:"time"`
+}
+
+type UserFieldConfigResult struct {
+	Result UFConfig    `json:"result"`
+	Total  int         `json:"total"`
+	Time   models.Time `json:"time"`
+}
+
+type UR struct {
+	ID        string `json:"ID"`
+	FIELDNAME string `json:"FIELD_NAME"`
+}
+
+type UFConfig struct {
+	Fields []UFFields `json:"fields"`
+}
+
+type UFFields struct {
+	ID        string `json:"id"`
+	FIELDNAME string `json:"fieldName"`
 }
 
 type UnBind struct {

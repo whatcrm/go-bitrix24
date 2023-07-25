@@ -109,15 +109,20 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	u.Path = path.Join(u.Path, rest, method)
 	query := u.Query()
 
+	if params != nil && params.ModuleID != "" {
+		query.Set("moduleId", params.ModuleID)
+		query.Set("id", params.ID)
+	}
+
 	if params != nil && params.RefreshToken != "" {
 		b24.Domain = oAuthToken
 		query.Set("refresh_token", params.RefreshToken)
 		query.Set("grant_type", "refresh_token")
 		query.Set("client_id", b24.ClientID)
 		query.Set("client_secret", b24.ClientSecret)
-	} else {
-		query.Set(Auth, b24.Auth)
 	}
+
+	query.Set(Auth, b24.Auth)
 
 	u.RawQuery = query.Encode()
 	log.Println(u.String())

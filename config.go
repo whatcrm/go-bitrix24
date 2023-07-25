@@ -31,11 +31,25 @@ const (
 
 	EventBind = "event.bind.json"
 
-	UserFieldTypeAdd    = "userfieldtype.add"
-	CrmContactUserField = "crm.contact.userfield.add"
-	CrmLeadUserField    = "crm.lead.userfield.add"
-	CrmDealUserField    = "crm.deal.userfield.add"
-	CrmCompanyUserField = "crm.company.userfield.add"
+	UserFieldTypeAdd       = "userfieldtype.add"
+	UserFieldTypeDelete    = "userfieldtype.delete"
+	CrmContactUserFieldAdd = "crm.contact.userfield.add"
+	CrmLeadUserFieldAdd    = "crm.lead.userfield.add"
+	CrmDealUserFieldAdd    = "crm.deal.userfield.add"
+	CrmCompanyUserFieldAdd = "crm.company.userfield.add"
+
+	CrmContactUserFieldList = "crm.contact.userfield.list"
+	CrmLeadUserFieldList    = "crm.lead.userfield.list"
+	CrmDealUserFieldList    = "crm.deal.userfield.list"
+	CrmCompanyUserFieldList = "crm.company.userfield.list"
+
+	CrmContactUserFieldDelete = "crm.contact.userfield.delete"
+	CrmLeadUserFieldDelete    = "crm.lead.userfield.delete"
+	CrmDealUserFieldDelete    = "crm.deal.userfield.delete"
+	CrmCompanyUserFieldDelete = "crm.company.userfield.delete"
+
+	UserFieldConfigList   = "userfieldconfig.list"
+	UserFieldConfigDelete = "userfieldconfig.delete"
 
 	BizprocRobotAdd  = "bizproc.robot.add"
 	BizprocRobotDel  = "bizproc.robot.delete"
@@ -44,12 +58,7 @@ const (
 
 const (
 	OnAppUninstall = "ONAPPUNINSTALL"
-)
-
-// Places
-
-const (
-	CrmContactTab = "CRM_CONTACT_DETAIL_TAB"
+	CrmContactTab  = "CRM_CONTACT_DETAIL_TAB"
 )
 
 type callMethodOptions struct {
