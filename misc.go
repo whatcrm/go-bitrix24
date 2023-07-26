@@ -54,6 +54,7 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 		return
 	}
 	b24.log("errorCheck passed")
+
 	if err = json.Unmarshal(body, options.Out); err != nil {
 		return fiber.NewError(400, string(body))
 	}

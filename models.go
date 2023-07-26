@@ -107,30 +107,37 @@ type MainResult struct {
 	Time   models.Time `json:"time"`
 }
 
-type UserfieldListResult struct {
-	Result []UR        `json:"result"`
+type UserfieldList struct {
+	Result []UFR       `json:"result"`
 	Total  int         `json:"total"`
 	Time   models.Time `json:"time"`
 }
 
-type UserFieldConfigResult struct {
-	Result UFConfig    `json:"result"`
-	Total  int         `json:"total"`
-	Time   models.Time `json:"time"`
-}
-
-type UR struct {
+type UFR struct {
 	ID        string `json:"ID"`
-	FIELDNAME string `json:"FIELD_NAME"`
+	FieldName string `json:"FIELD_NAME"`
+	Entity    string `json:"ENTITY_ID"`
 }
 
-type UFConfig struct {
-	Fields []UFFields `json:"fields"`
+type UserFieldConfig struct {
+	Result UFConfigResult `json:"result"`
+	Total  int            `json:"total"`
+	Time   models.Time    `json:"time"`
 }
 
-type UFFields struct {
-	ID        string `json:"id"`
-	FIELDNAME string `json:"fieldName"`
+type UFConfigResult struct {
+	Fields []UFR `json:"fields"`
+}
+
+//
+//type UFFields struct {
+//	ID        string `json:"id"`
+//	FieldName string `json:"fieldName"`
+//}
+
+type UFResult struct {
+	Result int         `json:"result"`
+	Time   models.Time `json:"time"`
 }
 
 type UnBind struct {

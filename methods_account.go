@@ -115,78 +115,72 @@ func (c *Delete) UserFieldType(in *models.UserField) (out MainResult, err error)
 	return
 }
 
-func (c *Create) UserField(in *models.UserField, base ...string) (out MainResult, err error) {
-	for _, v := range base {
-		if v != CrmContactUserFieldAdd && v != CrmLeadUserFieldAdd &&
-			v != CrmDealUserFieldAdd && v != CrmCompanyUserFieldAdd {
-			return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+v)
-		}
+func (c *Create) UserField(in *models.UserField, baseURL string) (out UFResult, err error) {
+	if baseURL != CrmContactUserFieldAdd && baseURL != CrmLeadUserFieldAdd &&
+		baseURL != CrmDealUserFieldAdd && baseURL != CrmCompanyUserFieldAdd {
+		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
+	}
 
-		options := callMethodOptions{
-			Method:  fiber.MethodPost,
-			BaseURL: v,
-			In:      &in,
-			Out:     &out,
-			Params:  nil,
-		}
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: baseURL,
+		In:      &in,
+		Out:     &out,
+		Params:  nil,
+	}
 
-		err = c.b24.callMethod(options)
-		if err != nil {
-			return
-		}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
 	}
 	return
 }
 
-func (c *Get) UserField(base ...string) (out UserfieldListResult, err error) {
-	for _, v := range base {
-		if v != CrmContactUserFieldList && v != CrmLeadUserFieldList &&
-			v != CrmDealUserFieldList && v != CrmCompanyUserFieldList {
-			return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+v)
-		}
+func (c *Get) UserField(baseURL string) (out UserfieldList, err error) {
+	if baseURL != CrmContactUserFieldList && baseURL != CrmLeadUserFieldList &&
+		baseURL != CrmDealUserFieldList && baseURL != CrmCompanyUserFieldList {
+		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
+	}
 
-		options := callMethodOptions{
-			Method:  fiber.MethodPost,
-			BaseURL: v,
-			In:      nil,
-			Out:     &out,
-			Params:  nil,
-		}
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: baseURL,
+		In:      nil,
+		Out:     &out,
+		Params:  nil,
+	}
 
-		err = c.b24.callMethod(options)
-		if err != nil {
-			return
-		}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
 	}
 	return
 }
 
-func (c *Delete) UserField(id string, base ...string) (out MainResult, err error) {
-	for _, v := range base {
-		if v != CrmContactUserFieldDelete && v != CrmLeadUserFieldDelete &&
-			v != CrmDealUserFieldDelete && v != CrmCompanyUserFieldDelete {
-			return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+v)
-		}
+func (c *Delete) UserField(id string, baseURL string) (out MainResult, err error) {
+	if baseURL != CrmContactUserFieldDelete && baseURL != CrmLeadUserFieldDelete &&
+		baseURL != CrmDealUserFieldDelete && baseURL != CrmCompanyUserFieldDelete {
+		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
+	}
 
-		options := callMethodOptions{
-			Method:  fiber.MethodPost,
-			BaseURL: v,
-			In: &RequestParams{
-				ID: id,
-			},
-			Out:    &out,
-			Params: nil,
-		}
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: baseURL,
+		In: &RequestParams{
+			ID: id,
+		},
+		Out:    &out,
+		Params: nil,
+	}
 
-		err = c.b24.callMethod(options)
-		if err != nil {
-			return
-		}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
 	}
 	return
 }
 
-func (c *Get) UserFieldConfig(in *RequestParams) (out UserFieldConfigResult, err error) {
+func (c *Get) UserFieldConfig(in *RequestParams) (out UserFieldConfig, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldConfigList,
