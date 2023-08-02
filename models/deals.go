@@ -57,5 +57,4 @@ type DealResult struct {
 	UtmTerm             interface{} `json:"UTM_TERM"`
 	LastActivityBy      string      `json:"LAST_ACTIVITY_BY"`
 	LastActivityTime    time.Time   `json:"LAST_ACTIVITY_TIME"`
-	UfCrmWhatCrm        string      `json:"UF_CRM_WHATCRM"`
 }

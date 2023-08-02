@@ -60,5 +60,4 @@ type ContactResult struct {
 	UtmTerm           any       `json:"UTM_TERM"`
 	LastActivityBy    string    `json:"LAST_ACTIVITY_BY"`
 	LastActivityTime  time.Time `json:"LAST_ACTIVITY_TIME"`
-	UFCRMWHATCRM      any       `json:"UF_CRM_WHATCRM"`
 }
