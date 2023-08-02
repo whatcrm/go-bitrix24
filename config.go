@@ -58,10 +58,22 @@ const (
 
 const (
 	OnAppUninstall = "ONAPPUNINSTALL"
-	CrmContactTab  = "CRM_CONTACT_DETAIL_TAB"
-	CrmLeadTab     = "CRM_LEAD_DETAIL_TAB"
-	CrmDealTab     = "CRM_DEAL_DETAIL_TAB"
-	CrmCompanyTab  = "CRM_COMPANY_DETAIL_TAB"
+
+	CrmContact          = "CRM_CONTACT"
+	CrmContactListMenu  = "CRM_CONTACT_LIST_MENU"
+	CrmContactDetailTab = "CRM_CONTACT_DETAIL_TAB"
+
+	CrmLead          = "CRM_LEAD"
+	CrmLeadListMenu  = "CRM_LEAD_LIST_MENU"
+	CrmLeadDetailTab = "CRM_LEAD_DETAIL_TAB"
+
+	CrmDeal          = "CRM_DEAL"
+	CrmDealListMenu  = "CRM_DEAL_LIST_MENU"
+	CrmDealDetailTab = "CRM_DEAL_DETAIL_TAB"
+
+	CrmCompany          = "CRM_COMPANY"
+	CrmCompanyListMenu  = "CRM_COMPANY_LIST_MENU"
+	CrmCompanyDetailTab = "CRM_COMPANY_DETAIL_TAB"
 )
 
 type callMethodOptions struct {
