@@ -1,8 +1,10 @@
 package b24
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/whatcrm/go-bitrix24/models"
+	"log"
 )
 
 func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error) {
@@ -32,6 +34,26 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 		}
 		out = options.Out.(*models.ContactList).Result
 	}
+	return
+}
+
+func (c *Update) Contacts(contactID string, in models.ContactResult) (out MainResult, err error) {
+	if contactID == "" {
+		err = fmt.Errorf("contactID is not found")
+		return
+	}
+
+	log.Println(in)
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmContactUpdate,
+		In:      in,
+		Out:     out,
+		Params:  nil,
+	}
+
+	err = c.b24.callMethod(options)
 	return
 }
 
