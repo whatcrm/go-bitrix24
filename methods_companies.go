@@ -36,6 +36,19 @@ func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 	return
 }
 
+func (c *Update) Companies(in models.CompanyResult) (out MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmCompanyUpdate,
+		In:      in,
+		Out:     out,
+		Params:  nil,
+	}
+
+	err = c.b24.callMethod(options)
+	return
+}
+
 //
 //func (c *Create) Company(in *[]models.Company) (out []models.Company, err error) {
 //	c.b24.log("CustomersMode request is started...")

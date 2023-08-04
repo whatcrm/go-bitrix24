@@ -39,6 +39,19 @@ func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 	return
 }
 
+func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmDealUpdate,
+		In:      in,
+		Out:     out,
+		Params:  nil,
+	}
+
+	err = c.b24.callMethod(options)
+	return
+}
+
 //
 //func (c *Create) Leads(lead *[]models.Lead, params *RequestParams) (resp []models.LeadResult, err error) {
 //	c.b24.log("CreateLeads request is started...")

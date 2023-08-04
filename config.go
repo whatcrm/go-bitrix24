@@ -20,14 +20,17 @@ const (
 	CrmContactAdd    = "crm.contact.add"
 	CrmContactUpdate = "crm.contact.update"
 
-	CrmLeadGet  = "crm.lead.get"
-	CrmLeadList = "crm.lead.get"
+	CrmLeadGet    = "crm.lead.get"
+	CrmLeadList   = "crm.lead.get"
+	CrmLeadUpdate = "crm.lead.update"
 
-	CrmDealGet  = "crm.deal.get"
-	CrmDealList = "crm.deal.get"
+	CrmDealGet    = "crm.deal.get"
+	CrmDealList   = "crm.deal.get"
+	CrmDealUpdate = "crm.deal.update"
 
-	CrmCompanyGet  = "crm.company.get"
-	CrmCompanyList = "crm.company.list"
+	CrmCompanyGet    = "crm.company.get"
+	CrmCompanyList   = "crm.company.list"
+	CrmCompanyUpdate = "crm.company.update"
 
 	EventBind = "event.bind.json"
 
