@@ -38,5 +38,5 @@ type Time struct {
 	DateStart        time.Time `json:"date_start"`
 	DateFinish       time.Time `json:"date_finish"`
 	OperatingResetAt int       `json:"operating_reset_at"`
-	Operating        int       `json:"operating"`
+	Operating        float64   `json:"operating"`
 }
