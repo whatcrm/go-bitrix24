@@ -41,7 +41,7 @@ func (c *Update) Companies(in models.CompanyResult) (out MainResult, err error) 
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyUpdate,
 		In:      in,
-		Out:     out,
+		Out:     &out,
 		Params:  nil,
 	}
 

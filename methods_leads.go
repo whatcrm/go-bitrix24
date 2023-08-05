@@ -45,7 +45,7 @@ func (c *Update) Leads(in models.LeadResult) (out MainResult, err error) {
 		Method:  fiber.MethodPost,
 		BaseURL: CrmLeadUpdate,
 		In:      in,
-		Out:     out,
+		Out:     &out,
 		Params:  nil,
 	}
 

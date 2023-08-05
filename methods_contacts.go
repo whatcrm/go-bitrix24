@@ -40,7 +40,7 @@ func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactUpdate,
 		In:      in,
-		Out:     out,
+		Out:     &out,
 		Params:  nil,
 	}
 

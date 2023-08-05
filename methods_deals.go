@@ -44,7 +44,7 @@ func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
 		Method:  fiber.MethodPost,
 		BaseURL: CrmDealUpdate,
 		In:      in,
-		Out:     out,
+		Out:     &out,
 		Params:  nil,
 	}
 
