@@ -5,13 +5,15 @@ import (
 	"github.com/whatcrm/go-bitrix24/models"
 )
 
-func (c *Create) TokenUPD(params *RequestParams) (t UpdatedTokens, err error) {
+func (c *Create) TokenUPD(refreshToken string) (t UpdatedTokens, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodGet,
 		BaseURL: "",
 		In:      nil,
 		Out:     &t,
-		Params:  params,
+		Params: &RequestParams{
+			RefreshToken: refreshToken,
+		},
 	}
 
 	err = c.b24.callMethod(options)
