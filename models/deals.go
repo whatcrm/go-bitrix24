@@ -15,19 +15,19 @@ type DealList struct {
 type DealResult struct {
 	ID                  string        `json:"ID,omitempty"`
 	Title               string        `json:"TITLE,omitempty"`
-	TypeID              string        `json:"TYPE_ID,omitempty"`
+	TypeID              interface{}   `json:"TYPE_ID,omitempty"`
 	StageID             string        `json:"STAGE_ID,omitempty"`
 	Probability         interface{}   `json:"PROBABILITY,omitempty"`
 	CurrencyID          string        `json:"CURRENCY_ID,omitempty"`
-	Opportunity         string        `json:"OPPORTUNITY,omitempty"`
+	Opportunity         interface{}   `json:"OPPORTUNITY,omitempty"`
 	IsManualOpportunity string        `json:"IS_MANUAL_OPPORTUNITY,omitempty"`
 	TaxValue            interface{}   `json:"TAX_VALUE,omitempty"`
 	LeadID              interface{}   `json:"LEAD_ID,omitempty"`
 	CompanyID           string        `json:"COMPANY_ID,omitempty"`
 	ContactID           string        `json:"CONTACT_ID,omitempty"`
 	QuoteID             interface{}   `json:"QUOTE_ID,omitempty"`
-	BeginDate           time.Time     `json:"BEGINDATE,omitempty"`
-	CloseDate           time.Time     `json:"CLOSEDATE,omitempty"`
+	BeginData           time.Time     `json:"BEGINDATE,omitempty"`
+	CloseDate           string        `json:"CLOSEDATE,omitempty"`
 	AssignedByID        string        `json:"ASSIGNED_BY_ID,omitempty"`
 	CreatedByID         string        `json:"CREATED_BY_ID,omitempty"`
 	ModifyByID          string        `json:"MODIFY_BY_ID,omitempty"`
@@ -48,13 +48,13 @@ type DealResult struct {
 	SourceDescription   interface{}   `json:"SOURCE_DESCRIPTION,omitempty"`
 	OriginatorID        interface{}   `json:"ORIGINATOR_ID,omitempty"`
 	OriginID            interface{}   `json:"ORIGIN_ID,omitempty"`
-	MovedByID           string        `json:"MOVED_BY_ID,omitempty"`
+	MovedByYID          string        `json:"MOVED_BY_ID,omitempty"`
 	MovedTime           time.Time     `json:"MOVED_TIME,omitempty"`
-	UtmSource           interface{}   `json:"UTM_SOURCE,omitempty"`
-	UtmMedium           interface{}   `json:"UTM_MEDIUM,omitempty"`
-	UtmCampaign         interface{}   `json:"UTM_CAMPAIGN,omitempty"`
-	UtmContent          interface{}   `json:"UTM_CONTENT,omitempty"`
-	UtmTerm             interface{}   `json:"UTM_TERM,omitempty"`
+	UTMSOURCE           interface{}   `json:"UTM_SOURCE,omitempty"`
+	UTMMEDIUM           interface{}   `json:"UTM_MEDIUM,omitempty"`
+	UTMCAMPAIGN         interface{}   `json:"UTM_CAMPAIGN,omitempty"`
+	UTMCONTENT          interface{}   `json:"UTM_CONTENT,omitempty"`
+	UTMTERM             interface{}   `json:"UTM_TERM,omitempty"`
 	LastActivityBy      string        `json:"LAST_ACTIVITY_BY,omitempty"`
 	LastActivityTime    time.Time     `json:"LAST_ACTIVITY_TIME,omitempty"`
 	Fields              *UpdateFields `json:"fields,omitempty"`

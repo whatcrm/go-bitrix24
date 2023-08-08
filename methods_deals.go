@@ -28,7 +28,7 @@ func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 	if id == "" {
 		options.In = nil
 		options.BaseURL = CrmDealList
-		options.Out = &models.CompanyList{}
+		options.Out = &models.DealList{}
 		if err = c.b24.callMethod(options); err != nil {
 			return
 		}
