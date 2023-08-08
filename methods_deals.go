@@ -52,26 +52,25 @@ func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
 	return
 }
 
-//
-//func (c *Create) Leads(lead *[]models.Lead, params *RequestParams) (resp []models.LeadResult, err error) {
-//	c.b24.log("CreateLeads request is started...")
-//
-//	options := callMethodOptions{
-//		Method:  fiber.MethodPost,
-//		BaseURL: CrmLeadAdd,
-//		In:      lead,
-//		Out:     &resp,
-//		Params:  params,
-//	}
-//	err = c.b24.callMethod(options)
-//	if err != nil {
-//		return
-//	}
-//
-//	c.b24.log("returning the struct...")
-//	log.Println(lead)
-//	return
-//}
+func (c *Create) Deals(params *models.DealResult) (resp UFResult, err error) {
+	c.b24.log("CreateLeads request is started...")
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmDealAdd,
+		In:      params,
+		Out:     &resp,
+		Params:  nil,
+	}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
+	}
+
+	c.b24.log("returning the struct...")
+	return
+}
+
 //
 //func (c *Update) Lead(id string, lead *models.Lead, params *RequestParams) (resp []models.LeadResult, err error) {
 //	c.b24.log("ModifyLead request started...")

@@ -69,8 +69,10 @@ type UpdateParams struct {
 }
 
 type UpdateFields struct {
-	Phone []PHONE `json:"PHONE"`
-	Email []EMAIL `json:"EMAIL"`
-	IM    []IM    `json:"IM"`
-	Web   []WEB   `json:"WEB"`
+	ContactID string  `json:"CONTACT_ID"`
+	Title     string  `json:"TITLE"`
+	Phone     []PHONE `json:"PHONE"`
+	Email     []EMAIL `json:"EMAIL"`
+	IM        []IM    `json:"IM"`
+	Web       []WEB   `json:"WEB"`
 }

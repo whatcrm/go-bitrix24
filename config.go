@@ -21,14 +21,17 @@ const (
 	CrmContactUpdate = "crm.contact.update"
 
 	CrmLeadGet    = "crm.lead.get"
-	CrmLeadList   = "crm.lead.get"
+	CrmLeadAdd    = "crm.lead.add"
+	CrmLeadList   = "crm.lead.list"
 	CrmLeadUpdate = "crm.lead.update"
 
+	CrmDealAdd    = "crm.deal.add"
 	CrmDealGet    = "crm.deal.get"
-	CrmDealList   = "crm.deal.get"
+	CrmDealList   = "crm.deal.list"
 	CrmDealUpdate = "crm.deal.update"
 
 	CrmCompanyGet    = "crm.company.get"
+	CrmCompanyAdd    = "crm.company.add"
 	CrmCompanyList   = "crm.company.list"
 	CrmCompanyUpdate = "crm.company.update"
 

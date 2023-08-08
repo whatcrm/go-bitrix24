@@ -48,6 +48,25 @@ func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
 	return
 }
 
+func (c *Create) Contacts(params *models.ContactResult) (resp UFResult, err error) {
+	c.b24.log("CreateLeads request is started...")
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmContactAdd,
+		In:      params,
+		Out:     &resp,
+		Params:  nil,
+	}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
+	}
+
+	c.b24.log("returning the struct...")
+	return
+}
+
 //func (c *Create) Contact(in []models.Contact) (out models.Contact, err error) {
 //	c.b24.log("CreateContact request is started...")
 //
