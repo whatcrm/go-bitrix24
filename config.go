@@ -57,6 +57,8 @@ const (
 	BizprocRobotAdd  = "bizproc.robot.add"
 	BizprocRobotDel  = "bizproc.robot.delete"
 	BizProcEventSend = "bizproc.event.send"
+
+	CrmDuplicatesFindByComm = "crm.duplicate.findbycomm"
 )
 
 const (

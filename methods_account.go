@@ -130,9 +130,6 @@ func (c *Create) UserField(in *models.UserField, baseURL string) (out UFResult, 
 	}
 
 	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 	return
 }
 
@@ -151,9 +148,6 @@ func (c *Get) UserField(baseURL string) (out UserfieldList, err error) {
 	}
 
 	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 	return
 }
 
@@ -174,9 +168,6 @@ func (c *Delete) UserField(id string, baseURL string) (out MainResult, err error
 	}
 
 	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 	return
 }
 
@@ -190,9 +181,6 @@ func (c *Get) UserFieldConfig(in *RequestParams) (out UserFieldConfig, err error
 	}
 
 	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 	return
 }
 
@@ -206,8 +194,18 @@ func (c *Delete) UserFieldConfig(in *RequestParams) (out MainResult, err error) 
 	}
 
 	err = c.b24.callMethod(options)
-	if err != nil {
-		return
+	return
+}
+
+func (c *Get) FindDuplicates(in *DuplicatesParams) (out DuplicatesResponse, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmDuplicatesFindByComm,
+		In:      in,
+		Out:     &out,
+		Params:  nil,
 	}
+
+	err = c.b24.callMethod(options)
 	return
 }

@@ -146,3 +146,18 @@ type UnBind struct {
 	} `json:"result"`
 	Time models.Time `json:"time"`
 }
+
+type DuplicatesParams struct {
+	Type       string   `json:"type"`
+	Values     []string `json:"values"`      // phones or emails < 20
+	EntityType string   `json:"entity_type"` // LEAD, CONTACT, COMPANY - if empty - all
+}
+
+type DuplicatesResponse struct {
+	Result struct {
+		CONTACT []int `json:"CONTACT,omitempty"`
+		LEAD    []int `json:"LEAD,omitempty"`
+		COMPANY []int `json:"COMPANY,omitempty"`
+	} `json:"result"`
+	Time models.Time `json:"time"`
+}
