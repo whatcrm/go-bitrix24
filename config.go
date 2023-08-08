@@ -2,7 +2,7 @@ package b24
 
 const (
 	scheme     = "https"
-	oAuthToken = "https://oauth.bitrix.info/oauth/token"
+	oAuthToken = "oauth.bitrix.info/oauth/token"
 )
 
 // Methods

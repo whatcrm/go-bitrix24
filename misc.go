@@ -19,6 +19,8 @@ func (b24 *API) getAgent(method, baseURL string, params *RequestParams) (*fiber.
 	req.Header.SetContentType(fiber.MIMEApplicationJSON)
 	req.Header.SetCanonical([]byte("Authorization"), []byte("Bearer "+b24.Auth))
 
+	a.MaxRedirectsCount(1)
+
 	req.SetRequestURI(b24.buildURL(baseURL, params))
 	//req.SetRequestURI("https://eokh00hewgqxm3a.m.pipedream.net/")
 	return a, req
@@ -80,7 +82,7 @@ func statusChecker(status int) error {
 		return fiber.NewError(201, "Created")
 	case 204:
 		return fiber.NewError(204, "No content")
-	case 200, 202, 302:
+	case 200, 202, 302, 301:
 		return nil
 	default:
 		return fiber.NewError(status, "unknown status")
@@ -116,7 +118,7 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	}
 
 	if params != nil && params.RefreshToken != "" {
-		b24.Domain = oAuthToken
+		u.Path = oAuthToken
 		query.Set("refresh_token", params.RefreshToken)
 		query.Set("grant_type", "refresh_token")
 		query.Set("client_id", b24.ClientID)
