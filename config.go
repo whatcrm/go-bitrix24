@@ -62,6 +62,8 @@ const (
 	BizProcEventSend = "bizproc.event.send"
 
 	CrmDuplicatesFindByComm = "crm.duplicate.findbycomm"
+
+	CrmItemGet = "crm.item.get"
 )
 
 const (

@@ -35,7 +35,9 @@ type RequestParams struct {
 	RefreshToken string `json:"refresh_token,omitempty"`
 
 	// Entity ID
-	ID string `json:"ID,omitempty"`
+	ID           string `json:"ID,omitempty"`
+	Id           string `json:"id,omitempty"`
+	EntityTypeID string `json:"entityTypeId"`
 
 	// Regular Params
 	Title       string `json:"TITLE,omitempty"`
