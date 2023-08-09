@@ -154,10 +154,12 @@ type DuplicatesParams struct {
 }
 
 type DuplicatesResponse struct {
-	Result struct {
-		CONTACT []int `json:"CONTACT,omitempty"`
-		LEAD    []int `json:"LEAD,omitempty"`
-		COMPANY []int `json:"COMPANY,omitempty"`
-	} `json:"result"`
-	Time models.Time `json:"time"`
+	CONTACT []int `json:"CONTACT,omitempty"`
+	LEAD    []int `json:"LEAD,omitempty"`
+	COMPANY []int `json:"COMPANY,omitempty"`
+}
+
+type DuplicatesNotFound struct {
+	Result any         `json:"result"`
+	Time   models.Time `json:"time"`
 }

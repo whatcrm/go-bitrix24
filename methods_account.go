@@ -1,8 +1,11 @@
 package b24
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/whatcrm/go-bitrix24/models"
+	"log"
 )
 
 func (c *Create) TokenUPD(refreshToken string) (t UpdatedTokens, err error) {
@@ -202,10 +205,57 @@ func (c *Get) FindDuplicates(in *DuplicatesParams) (out DuplicatesResponse, err 
 		Method:  fiber.MethodPost,
 		BaseURL: CrmDuplicatesFindByComm,
 		In:      in,
-		Out:     &out,
+		Out:     &DuplicatesNotFound{},
 		Params:  nil,
 	}
 
 	err = c.b24.callMethod(options)
+
+	test := options.Out.(*DuplicatesNotFound).Result
+
+	out, err = caseDuplicatesNotFound(test)
+	if err != nil {
+		c.b24.log("duplicates are found...")
+		out, err = caseDuplicatesResponse(test)
+	}
+
 	return
+}
+
+func caseDuplicatesNotFound(test any) (DuplicatesResponse, error) {
+
+	out := DuplicatesResponse{}
+
+	val, ok := test.(interface{})
+	if !ok {
+		return out, fmt.Errorf("any is not an interface")
+	}
+	m, err := json.Marshal(val)
+
+	if err = json.Unmarshal(m, &out.CONTACT); err != nil {
+		return out, err
+	}
+	return out, nil
+
+}
+
+func caseDuplicatesResponse(test any) (DuplicatesResponse, error) {
+	out := DuplicatesResponse{}
+
+	val, ok := test.(map[string]interface{})
+	if !ok {
+		fmt.Println("any is not a map")
+		return out, nil
+	}
+
+	m, err := json.Marshal(val)
+	if err != nil {
+		return out, err
+	}
+
+	if err := json.Unmarshal(m, &out); err != nil {
+		log.Println(err)
+		return out, err
+	}
+	return out, nil
 }

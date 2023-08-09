@@ -27,7 +27,6 @@ func server() {
 }
 
 func handler(ctx *fiber.Ctx) error {
-	log.Println(domain)
 	b24 := goBX24.NewAPI(clientID, clientSecret)
 
 	if err := b24.SetOptions(domain, auth, true); err != nil {
