@@ -53,6 +53,25 @@ func (c *Update) Leads(in models.LeadResult) (out MainResult, err error) {
 	return
 }
 
+func (c *Create) Leads(params *models.LeadResult) (resp UFResult, err error) {
+	c.b24.log("CreateLeads request is started...")
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmLeadAdd,
+		In:      params,
+		Out:     &resp,
+		Params:  nil,
+	}
+	err = c.b24.callMethod(options)
+	if err != nil {
+		return
+	}
+
+	c.b24.log("returning the struct...")
+	return
+}
+
 //
 //func (c *Create) Leads(lead *[]models.Lead, params *RequestParams) (resp []models.LeadResult, err error) {
 //	c.b24.log("CreateLeads request is started...")
