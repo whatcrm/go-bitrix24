@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/url"
 	"path"
-	"regexp"
 	"strings"
 )
 
@@ -138,10 +137,10 @@ func (b24 *API) log(message ...interface{}) {
 	}
 }
 
-func isRegex(text string) bool {
-	re := regexp.MustCompile("^[-a-zA-z0-9]{1,}\\.(bitrix24)\\.(ru|com|kz|kg)")
-	return re.MatchString(text)
-}
+//func isRegex(text string) bool {
+//	re := regexp.MustCompile("^[-a-zA-z0-9]{1,}\\.(bitrix24)\\.(ru|com|kz|kg)")
+//	return re.MatchString(text)
+//}
 
 func errorCheck(body []byte, status int) error {
 	if len(body) == 0 && status == fiber.StatusCreated {
