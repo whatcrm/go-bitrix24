@@ -146,7 +146,7 @@ type UnBind struct {
 	Result struct {
 		Count int `json:"count"`
 	} `json:"result"`
-	Time models.Time `json:"time"`
+	Time models.Time `json:"time,omitempty"`
 }
 
 type DuplicatesParams struct {

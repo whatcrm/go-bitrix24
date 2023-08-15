@@ -92,7 +92,7 @@ func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
 	return
 }
 
-func (b24 *API) CallUnBind(event, handler string) (out MainResult, err error) {
+func (b24 *API) CallUnBind(event, handler string) (out UnBind, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: EventUnBind,
