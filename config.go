@@ -35,7 +35,8 @@ const (
 	CrmCompanyList   = "crm.company.list"
 	CrmCompanyUpdate = "crm.company.update"
 
-	EventBind = "event.bind.json"
+	EventBind   = "event.bind.json"
+	EventUnBind = "event.unbind.json"
 
 	UserFieldTypeAdd       = "userfieldtype.add"
 	UserFieldTypeDelete    = "userfieldtype.delete"

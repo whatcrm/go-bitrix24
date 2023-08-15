@@ -92,6 +92,22 @@ func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
 	return
 }
 
+func (b24 *API) CallUnBind(event, handler string) (out MainResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: EventUnBind,
+		In: &RequestParams{
+			Event:   event,
+			Handler: handler,
+		},
+		Out:    &out,
+		Params: nil,
+	}
+
+	err = b24.callMethod(options)
+	return
+}
+
 func (c *Create) UserFieldType(in *models.UserField) (out MainResult, err error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
