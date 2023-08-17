@@ -70,21 +70,25 @@ const (
 const (
 	OnAppUninstall = "ONAPPUNINSTALL"
 
-	CrmContact          = "CRM_CONTACT"
-	CrmContactListMenu  = "CRM_CONTACT_LIST_MENU"
-	CrmContactDetailTab = "CRM_CONTACT_DETAIL_TAB"
+	CrmContact               = "CRM_CONTACT"
+	CrmContactListMenu       = "CRM_CONTACT_LIST_MENU"
+	CrmContactDetailTab      = "CRM_CONTACT_DETAIL_TAB"
+	CrmContactDetailActivity = "CRM_CONTACT_DETAIL_ACTIVITY"
 
-	CrmLead          = "CRM_LEAD"
-	CrmLeadListMenu  = "CRM_LEAD_LIST_MENU"
-	CrmLeadDetailTab = "CRM_LEAD_DETAIL_TAB"
+	CrmLead               = "CRM_LEAD"
+	CrmLeadListMenu       = "CRM_LEAD_LIST_MENU"
+	CrmLeadDetailTab      = "CRM_LEAD_DETAIL_TAB"
+	CrmLeadDetailActivity = "CRM_LEAD_DETAIL_ACTIVITY"
 
-	CrmDeal          = "CRM_DEAL"
-	CrmDealListMenu  = "CRM_DEAL_LIST_MENU"
-	CrmDealDetailTab = "CRM_DEAL_DETAIL_TAB"
+	CrmDeal               = "CRM_DEAL"
+	CrmDealListMenu       = "CRM_DEAL_LIST_MENU"
+	CrmDealDetailTab      = "CRM_DEAL_DETAIL_TAB"
+	CrmDealDetailActivity = "CRM_DEAL_DETAIL_ACTIVITY"
 
-	CrmCompany          = "CRM_COMPANY"
-	CrmCompanyListMenu  = "CRM_COMPANY_LIST_MENU"
-	CrmCompanyDetailTab = "CRM_COMPANY_DETAIL_TAB"
+	CrmCompany               = "CRM_COMPANY"
+	CrmCompanyListMenu       = "CRM_COMPANY_LIST_MENU"
+	CrmCompanyDetailTab      = "CRM_COMPANY_DETAIL_TAB"
+	CrmCompanyDetailActivity = "CRM_COMPANY_DETAIL_ACTIVITY"
 )
 
 type callMethodOptions struct {
