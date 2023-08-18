@@ -70,6 +70,8 @@ const (
 const (
 	OnAppUninstall = "ONAPPUNINSTALL"
 
+	CallCard = "CALL_CARD"
+
 	CrmContact               = "CRM_CONTACT"
 	CrmContactListMenu       = "CRM_CONTACT_LIST_MENU"
 	CrmContactDetailTab      = "CRM_CONTACT_DETAIL_TAB"
