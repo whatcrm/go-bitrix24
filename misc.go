@@ -51,6 +51,8 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 		return
 	}
 
+	b24.log(string(body))
+
 	if err = errorCheck(body, status); err != nil {
 		return
 	}
