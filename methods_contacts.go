@@ -6,6 +6,7 @@ import (
 )
 
 func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error) {
+	c.b24.log("GetContacts request is started...")
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactGet,
@@ -36,6 +37,7 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 }
 
 func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
+	c.b24.log("UpdateContacts request is started...")
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactUpdate,
@@ -49,7 +51,7 @@ func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
 }
 
 func (c *Create) Contacts(params *models.ContactResult) (resp UFResult, err error) {
-	c.b24.log("CreateLeads request is started...")
+	c.b24.log("CreateContacts request is started...")
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,

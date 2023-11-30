@@ -6,7 +6,7 @@ import (
 )
 
 func (c *Get) Deals(id string) (out []models.DealResult, err error) {
-	c.b24.log("GetLead request is started...")
+	c.b24.log("GetDeals request is started...")
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
@@ -53,7 +53,7 @@ func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
 }
 
 func (c *Create) Deals(params *models.DealResult) (resp UFResult, err error) {
-	c.b24.log("CreateLeads request is started...")
+	c.b24.log("CreateDeals request is started...")
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,

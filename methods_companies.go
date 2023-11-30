@@ -6,6 +6,7 @@ import (
 )
 
 func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
+	c.b24.log("GetCompanies request is started...")
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyGet,
@@ -37,6 +38,7 @@ func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 }
 
 func (c *Update) Companies(in models.CompanyResult) (out MainResult, err error) {
+	c.b24.log("UpdateCompanies request is started...")
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyUpdate,
