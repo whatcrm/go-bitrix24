@@ -76,4 +76,7 @@ type UpdateFields struct {
 	Email     []EMAIL `json:"EMAIL"`
 	IM        []IM    `json:"IM"`
 	Web       []WEB   `json:"WEB"`
+	Opportunity any `json:"OPPORTUNITY"`
+	LeadID string `json:"LEAD_ID"`
+
 }
