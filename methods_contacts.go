@@ -36,12 +36,17 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 	return
 }
 
-func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
+func (c *Update) Contacts(id string, in *models.UpdateFields) (out MainResult, err error) {
 	c.b24.log("UpdateContacts request is started...")
+	contact := models.CompanyResult{
+		ID:     id,
+		Fields: in,
+	}
+
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactUpdate,
-		In:      in,
+		In:      contact,
 		Out:     &out,
 		Params:  nil,
 	}
@@ -50,13 +55,16 @@ func (c *Update) Contacts(in models.ContactResult) (out MainResult, err error) {
 	return
 }
 
-func (c *Create) Contacts(params *models.ContactResult) (resp UFResult, err error) {
+func (c *Create) Contacts(in *models.UpdateFields) (resp UFResult, err error) {
 	c.b24.log("CreateContacts request is started...")
+	contact := models.CompanyResult{
+		Fields: in,
+	}
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmContactAdd,
-		In:      params,
+		In:      contact,
 		Out:     &resp,
 		Params:  nil,
 	}

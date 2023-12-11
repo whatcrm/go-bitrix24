@@ -39,11 +39,16 @@ func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 	return
 }
 
-func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
+func (c *Update) Deals(id string, in *models.UpdateFields) (out MainResult, err error) {
+	deal := models.DealResult{
+		ID:     id,
+		Fields: in,
+	}
+
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmDealUpdate,
-		In:      in,
+		In:      deal,
 		Out:     &out,
 		Params:  nil,
 	}
@@ -52,13 +57,16 @@ func (c *Update) Deals(in models.DealResult) (out MainResult, err error) {
 	return
 }
 
-func (c *Create) Deals(params *models.DealResult) (resp UFResult, err error) {
+func (c *Create) Deals(in *models.UpdateFields) (resp UFResult, err error) {
 	c.b24.log("CreateDeals request is started...")
+	deal := models.DealResult{
+		Fields: in,
+	}
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmDealAdd,
-		In:      params,
+		In:      deal,
 		Out:     &resp,
 		Params:  nil,
 	}
