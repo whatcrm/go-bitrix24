@@ -37,12 +37,17 @@ func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 	return
 }
 
-func (c *Update) Companies(in *models.CompanyResult) (out MainResult, err error) {
+func (c *Update) Companies(id string, in *models.UpdateFields) (out MainResult, err error) {
+	company := models.CompanyResult{
+		ID:     id,
+		Fields: in,
+	}
+
 	c.b24.log("UpdateCompanies request is started...")
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyUpdate,
-		In:      in,
+		In:      company,
 		Out:     &out,
 		Params:  nil,
 	}
@@ -51,13 +56,16 @@ func (c *Update) Companies(in *models.CompanyResult) (out MainResult, err error)
 	return
 }
 
-func (c *Create) Companies(in []models.CompanyResult) (out []models.Company, err error) {
+func (c *Create) Companies(in *models.UpdateFields) (out []models.Company, err error) {
 	c.b24.log("CustomersMode request is started...")
+	company := models.CompanyResult{
+		Fields: in,
+	}
 
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyAdd,
-		In:      in,
+		In:      company,
 		Out:     &models.Company{},
 		Params:  nil,
 	}
