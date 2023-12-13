@@ -71,6 +71,7 @@ type UpdateParams struct {
 type UpdateFields struct {
 	Name      string  `json:"NAME"`
 	ContactID string  `json:"CONTACT_ID"`
+	CompanyID string `json:"COMPANY_ID"`
 	Title     string  `json:"TITLE"`
 	Phone     []PHONE `json:"PHONE"`
 	Email     []EMAIL `json:"EMAIL"`
