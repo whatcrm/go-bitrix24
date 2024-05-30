@@ -99,9 +99,9 @@ type callMethodOptions struct {
 	// BaseURL is a url from constants above.
 	BaseURL string
 	// In is a struct, which will be marshalled to Request Body
-	In interface{}
+	In any
 	// Out is a struct, which will be unmarshalled
-	Out interface{}
+	Out any
 	// Params is a URL Parameters
 	Params *RequestParams
 }

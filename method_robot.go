@@ -4,7 +4,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (c *Create) Robots(in any) (out *MainResult, err error) {
+func (c *Create) Robots(in any) (*MainResult, error) {
+	out := &MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: BizprocRobotAdd,
@@ -13,11 +14,11 @@ func (c *Create) Robots(in any) (out *MainResult, err error) {
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Delete) Robots(code string) (out *MainResult, err error) {
+func (c *Delete) Robots(code string) (*MainResult, error) {
+	out := &MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: BizprocRobotDel,
@@ -28,11 +29,11 @@ func (c *Delete) Robots(code string) (out *MainResult, err error) {
 		Params: nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (b24 *API) RobotsEventSend(in *RequestParams) (out *MainResult, err error) {
+func (b24 *API) RobotsEventSend(in *RequestParams) (*MainResult, error) {
+	out := &MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: BizProcEventSend,
@@ -41,6 +42,5 @@ func (b24 *API) RobotsEventSend(in *RequestParams) (out *MainResult, err error) 
 		Params:  nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }

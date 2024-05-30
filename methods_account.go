@@ -2,13 +2,14 @@ package b24
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/whatcrm/go-bitrix24/models"
-	"log"
 )
 
-func (c *Create) TokenUPD(refreshToken string) (t UpdatedTokens, err error) {
+func (c *Create) TokenUPD(refreshToken string) (UpdatedTokens, error) {
+	t := UpdatedTokens{}
 	options := callMethodOptions{
 		Method:  fiber.MethodGet,
 		BaseURL: "",
@@ -19,12 +20,11 @@ func (c *Create) TokenUPD(refreshToken string) (t UpdatedTokens, err error) {
 		},
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return t, c.b24.callMethod(options)
 }
 
-func (b24 *API) IsAdmin() (out MainResult, err error) {
-
+func (b24 *API) IsAdmin() (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodGet,
 		BaseURL: UserAdmin,
@@ -33,11 +33,11 @@ func (b24 *API) IsAdmin() (out MainResult, err error) {
 		Params:  nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }
 
-func (b24 *API) PlacementUnBind(handler, placement string) (out UnBind, err error) {
+func (b24 *API) PlacementUnBind(handler, placement string) (UnBind, error) {
+	out := UnBind{}
 	// handler not required, if empty - all handlers will be removed
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
@@ -52,11 +52,11 @@ func (b24 *API) PlacementUnBind(handler, placement string) (out UnBind, err erro
 		Params: nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }
 
-func (b24 *API) PlacementBind(title, handler, placement string) (out MainResult, err error) {
+func (b24 *API) PlacementBind(title, handler, placement string) (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: PlacementBind,
@@ -71,11 +71,11 @@ func (b24 *API) PlacementBind(title, handler, placement string) (out MainResult,
 		Params: nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }
 
-func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
+func (b24 *API) CallBind(event, handler string) (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: EventBind,
@@ -88,11 +88,11 @@ func (b24 *API) CallBind(event, handler string) (out MainResult, err error) {
 		Params: nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }
 
-func (b24 *API) CallUnBind(event, handler string) (out UnBind, err error) {
+func (b24 *API) CallUnBind(event, handler string) (UnBind, error) {
+	out := UnBind{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: EventUnBind,
@@ -104,11 +104,11 @@ func (b24 *API) CallUnBind(event, handler string) (out UnBind, err error) {
 		Params: nil,
 	}
 
-	err = b24.callMethod(options)
-	return
+	return out, b24.callMethod(options)
 }
 
-func (c *Create) UserFieldType(in *models.UserField) (out MainResult, err error) {
+func (c *Create) UserFieldType(in *models.UserField) (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldTypeAdd,
@@ -117,11 +117,11 @@ func (c *Create) UserFieldType(in *models.UserField) (out MainResult, err error)
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Delete) UserFieldType(in *models.UserField) (out MainResult, err error) {
+func (c *Delete) UserFieldType(in *models.UserField) (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldTypeDelete,
@@ -130,11 +130,11 @@ func (c *Delete) UserFieldType(in *models.UserField) (out MainResult, err error)
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Create) UserField(in *models.UserField, baseURL string) (out UFResult, err error) {
+func (c *Create) UserField(in *models.UserField, baseURL string) (UFResult, error) {
+	out := UFResult{}
 	if baseURL != CrmContactUserFieldAdd && baseURL != CrmLeadUserFieldAdd &&
 		baseURL != CrmDealUserFieldAdd && baseURL != CrmCompanyUserFieldAdd {
 		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
@@ -148,11 +148,11 @@ func (c *Create) UserField(in *models.UserField, baseURL string) (out UFResult, 
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Get) UserField(baseURL string) (out UserfieldList, err error) {
+func (c *Get) UserField(baseURL string) (UserfieldList, error) {
+	out := UserfieldList{}
 	if baseURL != CrmContactUserFieldList && baseURL != CrmLeadUserFieldList &&
 		baseURL != CrmDealUserFieldList && baseURL != CrmCompanyUserFieldList {
 		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
@@ -166,11 +166,11 @@ func (c *Get) UserField(baseURL string) (out UserfieldList, err error) {
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Delete) UserField(id string, baseURL string) (out MainResult, err error) {
+func (c *Delete) UserField(id string, baseURL string) (MainResult, error) {
+	out := MainResult{}
 	if baseURL != CrmContactUserFieldDelete && baseURL != CrmLeadUserFieldDelete &&
 		baseURL != CrmDealUserFieldDelete && baseURL != CrmCompanyUserFieldDelete {
 		return out, fiber.NewError(fiber.StatusForbidden, "wrong base url: "+baseURL)
@@ -186,11 +186,11 @@ func (c *Delete) UserField(id string, baseURL string) (out MainResult, err error
 		Params: nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Get) UserFieldConfig(in *RequestParams) (out UserFieldConfig, err error) {
+func (c *Get) UserFieldConfig(in *RequestParams) (UserFieldConfig, error) {
+	out := UserFieldConfig{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldConfigList,
@@ -199,11 +199,11 @@ func (c *Get) UserFieldConfig(in *RequestParams) (out UserFieldConfig, err error
 		Params:  in,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Delete) UserFieldConfig(in *RequestParams) (out MainResult, err error) {
+func (c *Delete) UserFieldConfig(in *RequestParams) (MainResult, error) {
+	out := MainResult{}
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: UserFieldConfigDelete,
@@ -212,8 +212,7 @@ func (c *Delete) UserFieldConfig(in *RequestParams) (out MainResult, err error) 
 		Params:  in,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
 func (c *Get) FindDuplicates(in *DuplicatesParams) (out DuplicatesResponse, err error) {
@@ -225,43 +224,39 @@ func (c *Get) FindDuplicates(in *DuplicatesParams) (out DuplicatesResponse, err 
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
+	if err = c.b24.callMethod(options); err != nil {
+		return
+	}
 
-	test := options.Out.(*DuplicatesNotFound).Result
+	test, ok := options.Out.(*DuplicatesNotFound)
+	if !ok {
+		return out, errors.New("unable to assert to DuplicatesNotFound")
+	}
 
-	out, err = caseDuplicatesNotFound(test)
+	out, err = caseDuplicatesNotFound(test.Result)
 	if err != nil {
 		c.b24.log("duplicates are found...")
-		out, err = caseDuplicatesResponse(test)
+		out, err = caseDuplicatesResponse(test.Result)
 	}
 
 	return
 }
 
 func caseDuplicatesNotFound(test any) (DuplicatesResponse, error) {
-
 	out := DuplicatesResponse{}
-
-	val, ok := test.(interface{})
-	if !ok {
-		return out, fmt.Errorf("any is not an interface")
-	}
-	m, err := json.Marshal(val)
-
-	if err = json.Unmarshal(m, &out.CONTACT); err != nil {
+	m, err := json.Marshal(test)
+	if err != nil {
 		return out, err
 	}
-	return out, nil
 
+	return out, json.Unmarshal(m, &out.CONTACT)
 }
 
 func caseDuplicatesResponse(test any) (DuplicatesResponse, error) {
 	out := DuplicatesResponse{}
-
-	val, ok := test.(map[string]interface{})
+	val, ok := test.(map[string]any)
 	if !ok {
-		fmt.Println("any is not a map")
-		return out, nil
+		return out, errors.New("unable to assert to DuplicatesResponse")
 	}
 
 	m, err := json.Marshal(val)
@@ -269,9 +264,5 @@ func caseDuplicatesResponse(test any) (DuplicatesResponse, error) {
 		return out, err
 	}
 
-	if err := json.Unmarshal(m, &out); err != nil {
-		log.Println(err)
-		return out, err
-	}
-	return out, nil
+	return out, json.Unmarshal(m, &out)
 }
