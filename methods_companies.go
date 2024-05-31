@@ -56,8 +56,8 @@ func (c *Update) Companies(id string, in *models.UpdateFields) (out MainResult, 
 	return
 }
 
-func (c *Create) Companies(in *models.UpdateFields) (out []models.Company, err error) {
-	c.b24.log("CustomersMode request is started...")
+func (c *Create) Companies(in *models.UpdateFields) (resp UFResult, err error) {
+	c.b24.log("CreateCompanies request is started...")
 	company := models.CompanyResult{
 		Fields: in,
 	}
@@ -66,14 +66,15 @@ func (c *Create) Companies(in *models.UpdateFields) (out []models.Company, err e
 		Method:  fiber.MethodPost,
 		BaseURL: CrmCompanyAdd,
 		In:      company,
-		Out:     &models.Company{},
+		Out:     &resp,
 		Params:  nil,
 	}
 
 	if err = c.b24.callMethod(options); err != nil {
 		return
 	}
-	out = []models.Company{*options.Out.(*models.Company)}
+	
+	
 	c.b24.log("returning the struct...")
 	return
 }
