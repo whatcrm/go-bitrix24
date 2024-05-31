@@ -24,23 +24,23 @@ func (c *Get) Leads(id string) (lead []models.LeadResult, err error) {
 			return
 		}
 		lead = []models.LeadResult{options.Out.(*models.Lead).Result}
+		return
 	}
 
-	if id == "" {
-		options.In = nil
-		options.BaseURL = CrmLeadList
-		options.Out = &models.LeadList{}
-		if err = c.b24.callMethod(options); err != nil {
-			return
-		}
-		lead = options.Out.(*models.LeadList).Result
+	options.In = nil
+	options.BaseURL = CrmLeadList
+	options.Out = &models.LeadList{}
+	if err = c.b24.callMethod(options); err != nil {
+		return
 	}
+	lead = options.Out.(*models.LeadList).Result
 
 	c.b24.log("returning the struct...")
 	return
 }
 
-func (c *Update) Leads(id string, in *models.UpdateFields) (out MainResult, err error) {
+func (c *Update) Leads(id string, in *models.UpdateFields) (MainResult, error) {
+	out := MainResult{}
 	deal := models.DealResult{
 		ID:     id,
 		Fields: in,
@@ -54,11 +54,11 @@ func (c *Update) Leads(id string, in *models.UpdateFields) (out MainResult, err 
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Create) Leads(in *models.UpdateFields) (resp UFResult, err error) {
+func (c *Create) Leads(in *models.UpdateFields) (UFResult, error) {
+	resp := UFResult{}
 	c.b24.log("CreateLeads request is started...")
 	deal := models.DealResult{
 		Fields: in,
@@ -71,13 +71,8 @@ func (c *Create) Leads(in *models.UpdateFields) (resp UFResult, err error) {
 		Out:     &resp,
 		Params:  nil,
 	}
-	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 
-	c.b24.log("returning the struct...")
-	return
+	return resp, c.b24.callMethod(options)
 }
 
 //

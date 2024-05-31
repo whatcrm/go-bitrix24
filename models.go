@@ -60,7 +60,7 @@ type RequestParams struct {
 	EventToken       string      `json:"EVENT_TOKEN,omitempty"`
 	UseSubscription  string      `json:"USE_SUBSCRIPTION,omitempty"`
 	ReturnProperties *Properties `json:"RETURN_PROPERTIES,omitempty"`
-	ReturnValues     interface{} `json:"RETURN_VALUES,omitempty"`
+	ReturnValues     any         `json:"RETURN_VALUES,omitempty"`
 
 	ModuleID string `json:"moduleId"`
 }
@@ -86,10 +86,10 @@ type Bool struct {
 }
 
 type Select struct {
-	Default string      `json:"Default,omitempty"`
-	Name    string      `json:"Name"`
-	Type    string      `json:"Type"`
-	Options interface{} `json:"Options,omitempty"`
+	Default string `json:"Default,omitempty"`
+	Name    string `json:"Name"`
+	Type    string `json:"Type"`
+	Options any    `json:"Options,omitempty"`
 }
 
 type Options struct {

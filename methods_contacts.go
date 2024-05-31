@@ -22,21 +22,22 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 			return
 		}
 		out = []models.ContactResult{options.Out.(*models.Contact).Result}
+		return
 	}
 
-	if contactID == "" {
-		options.In = nil
-		options.BaseURL = CrmContactList
-		options.Out = &models.ContactList{}
-		if err = c.b24.callMethod(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.ContactList).Result
+	options.In = nil
+	options.BaseURL = CrmContactList
+	options.Out = &models.ContactList{}
+	if err = c.b24.callMethod(options); err != nil {
+		return
 	}
+	out = options.Out.(*models.ContactList).Result
+
 	return
 }
 
-func (c *Update) Contacts(id string, in *models.UpdateFields) (out MainResult, err error) {
+func (c *Update) Contacts(id string, in *models.UpdateFields) (MainResult, error) {
+	out := MainResult{}
 	c.b24.log("UpdateContacts request is started...")
 	contact := models.CompanyResult{
 		ID:     id,
@@ -51,11 +52,11 @@ func (c *Update) Contacts(id string, in *models.UpdateFields) (out MainResult, e
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Create) Contacts(in *models.UpdateFields) (resp UFResult, err error) {
+func (c *Create) Contacts(in *models.UpdateFields) (UFResult, error) {
+	resp := UFResult{}
 	c.b24.log("CreateContacts request is started...")
 	contact := models.CompanyResult{
 		Fields: in,
@@ -68,13 +69,8 @@ func (c *Create) Contacts(in *models.UpdateFields) (resp UFResult, err error) {
 		Out:     &resp,
 		Params:  nil,
 	}
-	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 
-	c.b24.log("returning the struct...")
-	return
+	return resp, c.b24.callMethod(options)
 }
 
 //func (c *Create) Contact(in []models.Contact) (out models.Contact, err error) {

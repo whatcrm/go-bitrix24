@@ -23,21 +23,22 @@ func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 		}
 
 		out = []models.CompanyResult{options.Out.(*models.Company).Result}
+		return
 	}
 
-	if id == "" {
-		options.In = nil
-		options.BaseURL = CrmCompanyList
-		options.Out = &models.CompanyList{}
-		if err = c.b24.callMethod(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.CompanyList).Result
+	options.In = nil
+	options.BaseURL = CrmCompanyList
+	options.Out = &models.CompanyList{}
+	if err = c.b24.callMethod(options); err != nil {
+		return
 	}
+	out = options.Out.(*models.CompanyList).Result
+
 	return
 }
 
-func (c *Update) Companies(id string, in *models.UpdateFields) (out MainResult, err error) {
+func (c *Update) Companies(id string, in *models.UpdateFields) (MainResult, error) {
+	out := MainResult{}
 	company := models.CompanyResult{
 		ID:     id,
 		Fields: in,
@@ -52,8 +53,7 @@ func (c *Update) Companies(id string, in *models.UpdateFields) (out MainResult, 
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
 func (c *Create) Companies(in *models.UpdateFields) (resp UFResult, err error) {
