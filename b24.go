@@ -22,3 +22,7 @@ func (b24 *API) SetOptions(domain, auth string, debug bool) error {
 	b24.Debug = debug
 	return nil
 }
+
+func (b24 *API) SetFallback(fallbackRefresh string) {
+	b24.FallbackRefreshToken = fallbackRefresh
+}

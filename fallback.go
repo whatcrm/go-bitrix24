@@ -1,14 +1,17 @@
 package b24
 
-func (b24 *API) fallback(refresh string) error {
-	upd, err := b24.Create().TokenUPD(refresh)
+func (b24 *API) fallback() bool {
+	if b24.FallbackRefreshToken == "" {
+		return false
+	}
+	upd, err := b24.Create().TokenUPD(b24.FallbackRefreshToken)
 	if err != nil {
-		return err
+		return false
 	}
 
-	if err = b24.SetOptions(upd.Domain, upd.AccessToken, b24.Debug); err != nil {
-		return err
+	if err = b24.SetOptions(b24.Domain, upd.AccessToken, b24.Debug); err != nil {
+		return false
 	}
 
-	return nil
+	return true
 }

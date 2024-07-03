@@ -12,9 +12,9 @@ type API struct {
 	Domain       string
 	Auth         string
 	Debug        bool
+	// FallbackAuth is a function designed to handle cases of Access Denied errors.
+	FallbackRefreshToken string
 }
-
-// Struct to send a data to amoCRM in order to get the tokens
 
 // The tokens' struct
 
@@ -165,3 +165,6 @@ type DuplicatesNotFound struct {
 	Result any         `json:"result"`
 	Time   models.Time `json:"time"`
 }
+
+const UnableToGetApplicationByToken = "Unable to get application by token"
+const AccessDenied = "Access denied"

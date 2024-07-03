@@ -53,6 +53,10 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 	b24.log(string(body))
 
 	err = b24.errorCheck(body, status, options)
+	if err != nil && (strings.Contains(err.Error(), AccessDenied) || strings.Contains(err.Error(), UnableToGetApplicationByToken)) && b24.fallback() {
+		return b24.callMethod(options)
+	}
+
 	if err != nil {
 		return
 	}
@@ -151,14 +155,6 @@ func (b24 *API) errorCheck(body []byte, status int, options callMethodOptions) e
 
 	if e.Error == "" && e.ErrorDescription == "" {
 		return nil
-	}
-
-	if strings.Contains(e.ErrorDescription, "Access denied") {
-		if err := b24.fallback(options.FallbackRefreshToken); err != nil {
-			return fmt.Errorf("%s %s", e.Error, e.ErrorDescription)
-		}
-
-		return b24.callMethod(options)
 	}
 
 	return fmt.Errorf("%s %s", e.Error, e.ErrorDescription)
