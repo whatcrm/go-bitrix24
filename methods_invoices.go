@@ -5,8 +5,7 @@ import (
 	"github.com/whatcrm/go-bitrix24/models"
 )
 
-func (c *Get) Invoices(id string) (out models.InvoiceResult, err error) {
-	// https://b24-4fyt5v.bitrix24.ru/rest/crm.item.get?auth=2691d36400645fee0065d9be00000001302a07baadfd547f28abce0a1223c63a76054b&entityTypeId=31&id=2
+func (c *Get) Invoices(id string) (models.InvoiceResult, error) {
 	options := callMethodOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: CrmItemGet,
@@ -18,7 +17,5 @@ func (c *Get) Invoices(id string) (out models.InvoiceResult, err error) {
 		Params: nil,
 	}
 
-	err = c.b24.callMethod(options)
-	out = options.Out.(*models.Invoice).Result
-	return
+	return options.Out.(*models.Invoice).Result, c.b24.callMethod(options)
 }

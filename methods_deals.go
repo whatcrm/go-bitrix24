@@ -23,23 +23,23 @@ func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 			return
 		}
 		out = []models.DealResult{options.Out.(*models.Deal).Result}
+		return
 	}
 
-	if id == "" {
-		options.In = nil
-		options.BaseURL = CrmDealList
-		options.Out = &models.DealList{}
-		if err = c.b24.callMethod(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.DealList).Result
+	options.In = nil
+	options.BaseURL = CrmDealList
+	options.Out = &models.DealList{}
+	if err = c.b24.callMethod(options); err != nil {
+		return
 	}
+	out = options.Out.(*models.DealList).Result
 
 	c.b24.log("returning the struct...")
 	return
 }
 
-func (c *Update) Deals(id string, in *models.UpdateFields) (out MainResult, err error) {
+func (c *Update) Deals(id string, in *models.UpdateFields) (MainResult, error) {
+	out := MainResult{}
 	deal := models.DealResult{
 		ID:     id,
 		Fields: in,
@@ -53,12 +53,12 @@ func (c *Update) Deals(id string, in *models.UpdateFields) (out MainResult, err 
 		Params:  nil,
 	}
 
-	err = c.b24.callMethod(options)
-	return
+	return out, c.b24.callMethod(options)
 }
 
-func (c *Create) Deals(in *models.UpdateFields) (resp UFResult, err error) {
+func (c *Create) Deals(in *models.UpdateFields) (UFResult, error) {
 	c.b24.log("CreateDeals request is started...")
+	resp := UFResult{}
 	deal := models.DealResult{
 		Fields: in,
 	}
@@ -70,13 +70,8 @@ func (c *Create) Deals(in *models.UpdateFields) (resp UFResult, err error) {
 		Out:     &resp,
 		Params:  nil,
 	}
-	err = c.b24.callMethod(options)
-	if err != nil {
-		return
-	}
 
-	c.b24.log("returning the struct...")
-	return
+	return resp, c.b24.callMethod(options)
 }
 
 //

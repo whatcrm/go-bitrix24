@@ -40,5 +40,6 @@ func handler(ctx *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
+
 	return ctx.JSON(res)
 }

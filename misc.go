@@ -3,11 +3,12 @@ package b24
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"log"
 	"net/url"
 	"path"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func (b24 *API) getAgent(method, baseURL string, params *RequestParams) (*fiber.Agent, *fiber.Request) {
@@ -31,7 +32,7 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 
 	if options.In != nil {
 		b24.log("marshaling the data...")
-		req, err = marshal(options.In, req)
+		_, err = marshal(options.In, req)
 		if err != nil {
 			return
 		}
@@ -90,7 +91,7 @@ func statusChecker(status int) error {
 	}
 }
 
-func marshal(data interface{}, req *fiber.Request) (*fiber.Request, error) {
+func marshal(data any, req *fiber.Request) (*fiber.Request, error) {
 	m, err := json.Marshal(&data)
 	if err != nil {
 		return req, err
@@ -101,7 +102,6 @@ func marshal(data interface{}, req *fiber.Request) (*fiber.Request, error) {
 }
 
 func (b24 *API) buildURL(method string, params *RequestParams) string {
-	// http://portal.bitrix24.com/rest/placement.bind/?access_token=sode3flffcmv500fuagrprhllx3soi72qq
 	b24.fixDomain()
 
 	u, err := url.Parse(b24.Domain)
@@ -133,7 +133,7 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	return u.String()
 }
 
-func (b24 *API) log(message ...interface{}) {
+func (b24 *API) log(message ...any) {
 	if b24.Debug {
 		log.Println(message...)
 	}

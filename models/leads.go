@@ -46,24 +46,24 @@ type LeadResult struct {
 	DateClosed          string        `json:"DATE_CLOSED,omitempty"`
 	StatusSemanticID    string        `json:"STATUS_SEMANTIC_ID,omitempty"`
 	Opened              string        `json:"OPENED,omitempty"`
-	OriginatorID        interface{}   `json:"ORIGINATOR_ID,omitempty"`
-	OriginID            interface{}   `json:"ORIGIN_ID,omitempty"`
+	OriginatorID        any           `json:"ORIGINATOR_ID,omitempty"`
+	OriginID            any           `json:"ORIGIN_ID,omitempty"`
 	MovedByID           string        `json:"MOVED_BY_ID,omitempty"`
 	MovedTime           string        `json:"MOVED_TIME,omitempty"`
-	Address             interface{}   `json:"ADDRESS,omitempty"`
-	Address2            interface{}   `json:"ADDRESS_2,omitempty"`
-	AddressCity         interface{}   `json:"ADDRESS_CITY,omitempty"`
-	AddressPostalCode   interface{}   `json:"ADDRESS_POSTAL_CODE,omitempty"`
-	AddressRegion       interface{}   `json:"ADDRESS_REGION,omitempty"`
-	AddressProvince     interface{}   `json:"ADDRESS_PROVINCE,omitempty"`
-	AddressCountry      interface{}   `json:"ADDRESS_COUNTRY,omitempty"`
-	AddressCountryCode  interface{}   `json:"ADDRESS_COUNTRY_CODE,omitempty"`
-	AddressLocaddrID    interface{}   `json:"ADDRESS_LOC_ADDR_ID,omitempty"`
-	UtmSource           interface{}   `json:"UTM_SOURCE,omitempty"`
-	UtmMedium           interface{}   `json:"UTM_MEDIUM,omitempty"`
-	UtmCampaign         interface{}   `json:"UTM_CAMPAIGN,omitempty"`
-	UtmContent          interface{}   `json:"UTM_CONTENT,omitempty"`
-	UtmTerm             interface{}   `json:"UTM_TERM,omitempty"`
+	Address             any           `json:"ADDRESS,omitempty"`
+	Address2            any           `json:"ADDRESS_2,omitempty"`
+	AddressCity         any           `json:"ADDRESS_CITY,omitempty"`
+	AddressPostalCode   any           `json:"ADDRESS_POSTAL_CODE,omitempty"`
+	AddressRegion       any           `json:"ADDRESS_REGION,omitempty"`
+	AddressProvince     any           `json:"ADDRESS_PROVINCE,omitempty"`
+	AddressCountry      any           `json:"ADDRESS_COUNTRY,omitempty"`
+	AddressCountryCode  any           `json:"ADDRESS_COUNTRY_CODE,omitempty"`
+	AddressLocaddrID    any           `json:"ADDRESS_LOC_ADDR_ID,omitempty"`
+	UtmSource           any           `json:"UTM_SOURCE,omitempty"`
+	UtmMedium           any           `json:"UTM_MEDIUM,omitempty"`
+	UtmCampaign         any           `json:"UTM_CAMPAIGN,omitempty"`
+	UtmContent          any           `json:"UTM_CONTENT,omitempty"`
+	UtmTerm             any           `json:"UTM_TERM,omitempty"`
 	LastActivityBy      string        `json:"LAST_ACTIVITY_BY,omitempty"`
 	LastActivityTime    string        `json:"LAST_ACTIVITY_TIME,omitempty"`
 	Fields              *UpdateFields `json:"fields,omitempty"`
