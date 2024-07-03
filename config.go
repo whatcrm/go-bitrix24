@@ -104,4 +104,6 @@ type callMethodOptions struct {
 	Out any
 	// Params is a URL Parameters
 	Params *RequestParams
+	// FallbackAuth is a function designed to handle cases of Access Denied errors.
+	FallbackRefreshToken string
 }

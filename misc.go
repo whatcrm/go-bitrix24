@@ -52,7 +52,8 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 
 	b24.log(string(body))
 
-	if err = errorCheck(body, status); err != nil {
+	err = b24.errorCheck(body, status, options)
+	if err != nil {
 		return
 	}
 	b24.log("errorCheck passed")
@@ -137,12 +138,7 @@ func (b24 *API) log(message ...any) {
 	}
 }
 
-//func isRegex(text string) bool {
-//	re := regexp.MustCompile("^[-a-zA-z0-9]{1,}\\.(bitrix24)\\.(ru|com|kz|kg)")
-//	return re.MatchString(text)
-//}
-
-func errorCheck(body []byte, status int) error {
+func (b24 *API) errorCheck(body []byte, status int, options callMethodOptions) error {
 	if len(body) == 0 && status == fiber.StatusCreated {
 		return nil
 	}
@@ -157,8 +153,15 @@ func errorCheck(body []byte, status int) error {
 		return nil
 	}
 
-	log.Println("ERROR: ", e)
-	return fmt.Errorf(e.Error + " " + e.ErrorDescription)
+	if strings.Contains(e.ErrorDescription, "Access denied") {
+		if err := b24.fallback(options.FallbackRefreshToken); err != nil {
+			return fmt.Errorf("%s %s", e.Error, e.ErrorDescription)
+		}
+
+		return b24.callMethod(options)
+	}
+
+	return fmt.Errorf("%s %s", e.Error, e.ErrorDescription)
 }
 
 func (b24 *API) fixDomain() {
