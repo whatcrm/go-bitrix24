@@ -22,7 +22,6 @@ func (b24 *API) getAgent(method, baseURL string, params *RequestParams) (*fiber.
 	a.MaxRedirectsCount(1)
 
 	req.SetRequestURI(b24.buildURL(baseURL, params))
-	//req.SetRequestURI("https://eokh00hewgqxm3a.m.pipedream.net/")
 	return a, req
 }
 
@@ -32,8 +31,7 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 
 	if options.In != nil {
 		b24.log("marshaling the data...")
-		_, err = marshal(options.In, req)
-		if err != nil {
+		if err = marshal(options.In, req); err != nil {
 			return
 		}
 	}
@@ -91,14 +89,14 @@ func statusChecker(status int) error {
 	}
 }
 
-func marshal(data any, req *fiber.Request) (*fiber.Request, error) {
+func marshal(data any, req *fiber.Request) error {
 	m, err := json.Marshal(&data)
 	if err != nil {
-		return req, err
+		return err
 	}
 
 	req.SetBody(m)
-	return req, nil
+	return nil
 }
 
 func (b24 *API) buildURL(method string, params *RequestParams) string {
