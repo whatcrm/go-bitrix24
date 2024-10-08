@@ -67,7 +67,7 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 	}
 	b24.log("unmarshal passed")
 
-	err = statusChecker(status)
+	//err = statusChecker(status)
 	return
 }
 
