@@ -68,6 +68,7 @@ type RequestParams struct {
 type Properties struct {
 	Select *Select `json:"select,omitempty"`
 	String *String `json:"string,omitempty"`
+	Bool   *Bool   `json:"bool,omitempty"`
 }
 
 type String struct {
