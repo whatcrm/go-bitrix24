@@ -83,7 +83,7 @@ type String struct {
 type Bool struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
-	Default string `json:"default,omitempty"`
+	Default bool   `json:"default,omitempty"`
 }
 
 type Select struct {
