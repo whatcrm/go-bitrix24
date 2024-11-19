@@ -28,14 +28,6 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 		}
 	}
 
-	// handling redirects
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
-		if len(via) >= 1 {
-			return fmt.Errorf("stopped after 1 redirect")
-		}
-		return nil
-	}
-
 	reader := &bytes.Reader{}
 	if options.In != nil {
 		b24.log("marshaling the data...")
