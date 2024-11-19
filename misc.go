@@ -3,8 +3,8 @@ package b24
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"io"
 	"log"
 	"net/http"
@@ -82,7 +82,7 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 	b24.log("errorCheck passed")
 
 	if err = json.Unmarshal(body, options.Out); err != nil {
-		return fiber.NewError(400, string(body))
+		return fmt.Errorf("400 Bad Request: %q", body)
 	}
 
 	b24.log("unmarshal passed")
@@ -152,24 +152,24 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 
 func statusChecker(status int) error {
 	switch status {
-	case 400:
-		return fiber.ErrBadRequest
-	case 401:
-		return fiber.ErrUnauthorized
-	case 402:
-		return fiber.ErrPaymentRequired
-	case 403:
-		return fiber.ErrForbidden
-	case 404:
-		return fiber.ErrNotFound
-	case 201:
-		return fiber.NewError(201, "Created")
-	case 204:
-		return fiber.NewError(204, "No content")
-	case 200, 202, 302, 301:
+	case http.StatusBadRequest:
+		return errors.New("400 Bad Request")
+	case http.StatusUnauthorized:
+		return errors.New("401 Unauthorized")
+	case http.StatusPaymentRequired:
+		return errors.New("402 Payment Required")
+	case http.StatusForbidden:
+		return errors.New("403 Forbidden")
+	case http.StatusNotFound:
+		return errors.New("404 Not Found")
+	case http.StatusCreated:
+		return errors.New("201 Created")
+	case http.StatusNoContent:
+		return errors.New("204 No Content")
+	case http.StatusOK, http.StatusAccepted, http.StatusFound, http.StatusMovedPermanently:
 		return nil
 	default:
-		return fiber.NewError(status, "unknown status")
+		return fmt.Errorf("%d Unknown Status", status)
 	}
 }
 
@@ -221,7 +221,7 @@ func (b24 *API) log(message ...any) {
 }
 
 func (b24 *API) errorCheck(body []byte, status int, options callMethodOptions) error {
-	if len(body) == 0 && status == fiber.StatusCreated {
+	if len(body) == 0 && status == http.StatusCreated {
 		return nil
 	}
 
