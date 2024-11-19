@@ -14,6 +14,8 @@ type API struct {
 	Debug        bool
 	// FallbackAuth is a function designed to handle cases of Access Denied errors.
 	FallbackRefreshToken string
+	// Proxy defines a proxy link if required.
+	Proxy string
 }
 
 // The tokens' struct

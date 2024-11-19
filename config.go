@@ -94,14 +94,14 @@ const (
 )
 
 type callMethodOptions struct {
-	// Method is a request's method
+	// Method specifies the B24 method
 	Method string
-	// BaseURL is a url from constants above.
+	// BaseURL defines the base URL for the request
 	BaseURL string
-	// In is a struct, which will be marshalled to Request Body
+	// In contains the payload to be marshaled into the request body
 	In any
-	// Out is a struct, which will be unmarshalled
+	// Out is the struct to unmarshal the response body into
 	Out any
-	// Params is a URL Parameters
+	// Params holds the query parameters for the request
 	Params *RequestParams
 }
