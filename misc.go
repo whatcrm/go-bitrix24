@@ -81,67 +81,6 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 	return nil
 }
 
-//func (b24 *API) getFiberAgent(method, baseURL string, params *RequestParams) (*fiber.Agent, *fiber.Request) {
-//	a := fiber.AcquireAgent()
-//	req := a.Request()
-//	req.Header.SetMethod(method)
-//
-//	req.Header.SetContentType(fiber.MIMEApplicationJSON)
-//	req.Header.SetCanonical([]byte("Authorization"), []byte("Bearer "+b24.Auth))
-//
-//	a.MaxRedirectsCount(1)
-//
-//	req.SetRequestURI(b24.buildURL(baseURL, params))
-//	return a, req
-//}
-
-//
-//func (b24 *API) callMethod(options callMethodOptions) (err error) {
-//
-//	a, req := b24.getFiberAgent(options.Method, options.BaseURL, options.Params)
-//
-//	if options.In != nil {
-//		b24.log("marshaling the data...")
-//		if err = marshal(options.In, req); err != nil {
-//			return
-//		}
-//	}
-//
-//	b24.log("sending the data...")
-//	if err = a.Parse(); err != nil {
-//		log.Println(err)
-//		return
-//	}
-//
-//	b24.log("getting the answer...")
-//	status, body, errs := a.Bytes()
-//	if errs != nil {
-//		log.Println("Errs: ", errs)
-//		err = errs[0]
-//		return
-//	}
-//
-//	b24.log(string(body))
-//
-//	err = b24.errorCheck(body, status, options)
-//	if err != nil && (strings.Contains(err.Error(), AccessDenied) || strings.Contains(err.Error(), UnableToGetApplicationByToken)) && b24.fallback() {
-//		return b24.callMethod(options)
-//	}
-//
-//	if err != nil {
-//		return
-//	}
-//	b24.log("errorCheck passed")
-//
-//	if err = json.Unmarshal(body, options.Out); err != nil {
-//		return fiber.NewError(400, string(body))
-//	}
-//	b24.log("unmarshal passed")
-//
-//	//err = statusChecker(status)
-//	return
-//}
-
 func statusChecker(status int) error {
 	switch status {
 	case http.StatusBadRequest:
@@ -202,7 +141,6 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	query.Set(Auth, b24.Auth)
 
 	u.RawQuery = query.Encode()
-	log.Println(u.String())
 	return u.String()
 }
 
