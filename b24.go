@@ -2,6 +2,8 @@ package b24
 
 import (
 	"fmt"
+	"net/url"
+	"strings"
 )
 
 func NewAPI(clientID, clientSecret string) *API {
@@ -14,7 +16,12 @@ func NewAPI(clientID, clientSecret string) *API {
 func (b24 *API) SetOptions(domain, auth string, debug bool) error {
 	b24.Domain = domain
 
-	if auth == "" {
+	// Для вебхуков проверяем формат
+	if strings.HasPrefix(auth, "http") {
+		if _, err := url.Parse(auth); err != nil {
+			return fmt.Errorf("invalid webhook URL: %w", err)
+		}
+	} else if auth == "" {
 		return fmt.Errorf("accessToken is not set")
 	}
 
