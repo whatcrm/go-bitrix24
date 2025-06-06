@@ -2,6 +2,8 @@ package b24
 
 import (
 	"fmt"
+	"net/url"
+	"strings"
 )
 
 func NewAPI(clientID, clientSecret string) *API {
@@ -9,6 +11,20 @@ func NewAPI(clientID, clientSecret string) *API {
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
 	}
+}
+
+func NewWebhook(host string) (*API, error) {
+	if !strings.HasPrefix(host, "http") {
+		return nil, fmt.Errorf("invalid webhook URL")
+	}
+
+	if _, err := url.Parse(host); err != nil {
+		return nil, fmt.Errorf("invalid webhook URL: %w", err)
+	}
+
+	return &API{
+		WebhookURL: host,
+	}, nil
 }
 
 func (b24 *API) SetOptions(domain, auth string, debug bool) error {

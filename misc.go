@@ -26,6 +26,8 @@ func (b24 *API) getAgent(method, baseURL string, params *RequestParams) (*fiber.
 }
 
 func (b24 *API) callMethod(options callMethodOptions) (err error) {
+	url := b24.buildURL(options.BaseURL, options.Params)
+	b24.log("Request URL:", url)
 
 	a, req := b24.getAgent(options.Method, options.BaseURL, options.Params)
 
@@ -105,6 +107,14 @@ func marshal(data any, req *fiber.Request) error {
 }
 
 func (b24 *API) buildURL(method string, params *RequestParams) string {
+	if b24.WebhookURL != "" {
+		u, _ := url.Parse(b24.WebhookURL)
+		u.Path = path.Join(u.Path, method+".json")
+		b24.log("Webhook URL:", u.String())
+		return u.String()
+	}
+
+	// Старый код для OAuth
 	b24.fixDomain()
 
 	u, err := url.Parse(b24.Domain)
@@ -132,7 +142,7 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	query.Set(Auth, b24.Auth)
 
 	u.RawQuery = query.Encode()
-	log.Println(u.String())
+	b24.log("Final URL:", u.String())
 	return u.String()
 }
 
@@ -169,4 +179,22 @@ func (b24 *API) fixDomain() {
 		b24.Domain = uri.Hostname()
 	}
 	b24.Domain = strings.ReplaceAll(b24.Domain, "//", "/")
+}
+
+func (b24 *API) CustomMethod(method string, params interface{}) ([]byte, error) {
+	var rawResponse json.RawMessage
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: method,
+		In:      params,
+		Out:     &rawResponse,
+		Params:  nil,
+	}
+
+	if err := b24.callMethod(options); err != nil {
+		return nil, err
+	}
+
+	return rawResponse, nil
 }
