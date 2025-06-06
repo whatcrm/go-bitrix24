@@ -107,17 +107,11 @@ func marshal(data any, req *fiber.Request) error {
 }
 
 func (b24 *API) buildURL(method string, params *RequestParams) string {
-	// Если используется вебхук (auth начинается с http)
-	if strings.HasPrefix(b24.Auth, "http") {
-		// Парсим URL вебхука
-		webhookURL, err := url.Parse(b24.Auth)
-		if err != nil {
-			return "invalid webhook URL"
-		}
-
-		// Добавляем метод к пути
-		webhookURL.Path = path.Join(webhookURL.Path, method+".json")
-		return webhookURL.String()
+	if b24.WebhookURL != "" {
+		u, _ := url.Parse(b24.WebhookURL)
+		u.Path = path.Join(u.Path, method+".json")
+		b24.log("Webhook URL:", u.String())
+		return u.String()
 	}
 
 	// Старый код для OAuth
@@ -187,8 +181,7 @@ func (b24 *API) fixDomain() {
 	b24.Domain = strings.ReplaceAll(b24.Domain, "//", "/")
 }
 
-// CallMethod - универсальный метод для вызова API Bitrix24
-func (b24 *API) CallMethod(method string, params interface{}) ([]byte, error) {
+func (b24 *API) CustomMethod(method string, params interface{}) ([]byte, error) {
 	var rawResponse json.RawMessage
 
 	options := callMethodOptions{
