@@ -159,6 +159,7 @@ type DuplicatesResponse struct {
 	CONTACT []int `json:"CONTACT,omitempty"`
 	LEAD    []int `json:"LEAD,omitempty"`
 	COMPANY []int `json:"COMPANY,omitempty"`
+	DEAL    []int `json:"DEAL,omitempty"`
 }
 
 type DuplicatesNotFound struct {
