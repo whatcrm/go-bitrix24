@@ -29,7 +29,13 @@ func (b24 *API) callMethod(options callMethodOptions) (err error) {
 
 	a, req := b24.getAgent(options.Method, options.BaseURL, options.Params)
 
-	if options.In != nil {
+	//добавлено для поиска по username
+	if options.Params != nil && (options.Params.Filter != nil || options.Params.Select != nil) {
+		b24.log("marshaling params with filter/select...")
+		if err = marshal(options.Params, req); err != nil {
+			return
+		}
+	} else if options.In != nil {
 		b24.log("marshaling the data...")
 		if err = marshal(options.In, req); err != nil {
 			return

@@ -36,6 +36,20 @@ func (c *Get) Contacts(contactID string) (out []models.ContactResult, err error)
 	return
 }
 
+func (c *Get) ContactsWithParams(params *RequestParams) (out []models.ContactResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmContactList,
+		Out:     &models.ContactList{},
+		Params:  params,
+	}
+	if err = c.b24.callMethod(options); err != nil {
+		return
+	}
+	out = options.Out.(*models.ContactList).Result
+	return
+}
+
 func (c *Update) Contacts(id string, in *models.UpdateFields) (MainResult, error) {
 	out := MainResult{}
 	c.b24.log("UpdateContacts request is started...")

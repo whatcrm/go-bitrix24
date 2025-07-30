@@ -52,6 +52,9 @@ type RequestParams struct {
 	AuthConnector string `json:"auth_connector,omitempty"`
 	// TODO Options
 
+	Filter map[string]any `json:"filter,omitempty"`
+	Select []string       `json:"select,omitempty"`
+
 	// Robot params + handler
 	Code             string      `json:"CODE,omitempty"`
 	AuthUserID       int         `json:"AUTH_USER_ID,omitempty"`
@@ -159,7 +162,6 @@ type DuplicatesResponse struct {
 	CONTACT []int `json:"CONTACT,omitempty"`
 	LEAD    []int `json:"LEAD,omitempty"`
 	COMPANY []int `json:"COMPANY,omitempty"`
-	DEAL    []int `json:"DEAL,omitempty"`
 }
 
 type DuplicatesNotFound struct {
