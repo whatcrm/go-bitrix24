@@ -39,6 +39,20 @@ func (c *Get) Leads(id string) (lead []models.LeadResult, err error) {
 	return
 }
 
+func (c *Get) LeadsWithParams(params *RequestParams) (out []models.LeadResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmLeadList,
+		Out:     &models.LeadList{},
+		Params:  params,
+	}
+	if err = c.b24.callMethod(options); err != nil {
+		return
+	}
+	out = options.Out.(*models.LeadList).Result
+	return
+}
+
 func (c *Update) Leads(id string, in *models.UpdateFields) (MainResult, error) {
 	out := MainResult{}
 	deal := models.DealResult{

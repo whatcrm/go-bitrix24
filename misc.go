@@ -29,8 +29,17 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 	}
 
 	reader := &bytes.Reader{}
-	if options.In != nil {
-		b24.log("marshaling the data...")
+  
+	//добавлено для поиска по username
+	if options.Params != nil && (options.Params.Filter != nil || options.Params.Select != nil) {
+		b24.log("marshaling params with filter/select...")
+		if err = marshal(options.Params, req); err != nil {
+			return err
+		}
+    
+    reader = r
+	} else if options.In != nil {
+    b24.log("marshaling the data...")
 		r, err := marshal(options.In)
 		if err != nil {
 			return err
