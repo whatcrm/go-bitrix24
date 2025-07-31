@@ -42,3 +42,7 @@ func (b24 *API) SetOptions(domain, auth string, debug bool) error {
 func (b24 *API) SetFallback(fallbackRefresh string) {
 	b24.FallbackRefreshToken = fallbackRefresh
 }
+
+func (b24 *API) SetProxy(proxy string) {
+	b24.Proxy = proxy
+}

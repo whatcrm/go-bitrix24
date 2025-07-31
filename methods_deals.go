@@ -38,6 +38,20 @@ func (c *Get) Deals(id string) (out []models.DealResult, err error) {
 	return
 }
 
+func (c *Get) DealsWithParams(params *RequestParams) (out []models.DealResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmDealList,
+		Out:     &models.DealList{},
+		Params:  params,
+	}
+	if err = c.b24.callMethod(options); err != nil {
+		return
+	}
+	out = options.Out.(*models.DealList).Result
+	return
+}
+
 func (c *Update) Deals(id string, in *models.UpdateFields) (MainResult, error) {
 	out := MainResult{}
 	deal := models.DealResult{

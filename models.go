@@ -15,6 +15,8 @@ type API struct {
 	Debug        bool
 	// FallbackAuth is a function designed to handle cases of Access Denied errors.
 	FallbackRefreshToken string
+	// Proxy defines a proxy link if required.
+	Proxy string
 }
 
 // The tokens' struct
@@ -53,6 +55,9 @@ type RequestParams struct {
 	AuthConnector string `json:"auth_connector,omitempty"`
 	// TODO Options
 
+	Filter map[string]any `json:"filter,omitempty"`
+	Select []string       `json:"select,omitempty"`
+
 	// Robot params + handler
 	Code             string      `json:"CODE,omitempty"`
 	AuthUserID       int         `json:"AUTH_USER_ID,omitempty"`
@@ -69,6 +74,7 @@ type RequestParams struct {
 type Properties struct {
 	Select *Select `json:"select,omitempty"`
 	String *String `json:"string,omitempty"`
+	Bool   *Bool   `json:"bool,omitempty"`
 }
 
 type String struct {
@@ -83,7 +89,7 @@ type String struct {
 type Bool struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
-	Default string `json:"default,omitempty"`
+	Default bool   `json:"default,omitempty"`
 }
 
 type Select struct {

@@ -37,6 +37,20 @@ func (c *Get) Companies(id string) (out []models.CompanyResult, err error) {
 	return
 }
 
+func (c *Get) CompaniesWithParams(params *RequestParams) (out []models.CompanyResult, err error) {
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: CrmCompanyList,
+		Out:     &models.CompanyList{},
+		Params:  params,
+	}
+	if err = c.b24.callMethod(options); err != nil {
+		return
+	}
+	out = options.Out.(*models.CompanyList).Result
+	return
+}
+
 func (c *Update) Companies(id string, in *models.UpdateFields) (MainResult, error) {
 	out := MainResult{}
 	company := models.CompanyResult{
@@ -73,8 +87,7 @@ func (c *Create) Companies(in *models.UpdateFields) (resp UFResult, err error) {
 	if err = c.b24.callMethod(options); err != nil {
 		return
 	}
-	
-	
+
 	c.b24.log("returning the struct...")
 	return
 }
