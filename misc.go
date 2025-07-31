@@ -28,7 +28,10 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 		}
 	}
 
-	reader := &bytes.Reader{}
+	url := b24.buildURL(options.BaseURL, options.Params)
+	b24.log("Request URL:", url)
+
+  reader := &bytes.Reader{}
 
 	//добавлено для поиска по username
 	if options.Params != nil && (options.Params.Filter != nil || options.Params.Select != nil) {
@@ -49,7 +52,7 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 		reader = r
 	}
 
-	req, err := http.NewRequest(options.Method, b24.buildURL(options.BaseURL, options.Params), reader)
+	req, err := http.NewRequest(options.Method, url, reader)
 	if err != nil {
 		return err
 	}
@@ -124,6 +127,14 @@ func marshal(data any) (*bytes.Reader, error) {
 }
 
 func (b24 *API) buildURL(method string, params *RequestParams) string {
+	if b24.WebhookURL != "" {
+		u, _ := url.Parse(b24.WebhookURL)
+		u.Path = path.Join(u.Path, method+".json")
+		b24.log("Webhook URL:", u.String())
+		return u.String()
+	}
+
+	// Старый код для OAuth
 	b24.fixDomain()
 
 	u, err := url.Parse(b24.Domain)
@@ -151,6 +162,7 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	query.Set(Auth, b24.Auth)
 
 	u.RawQuery = query.Encode()
+	b24.log("Final URL:", u.String())
 	return u.String()
 }
 
@@ -187,4 +199,22 @@ func (b24 *API) fixDomain() {
 		b24.Domain = uri.Hostname()
 	}
 	b24.Domain = strings.ReplaceAll(b24.Domain, "//", "/")
+}
+
+func (b24 *API) CustomMethod(method string, params interface{}) ([]byte, error) {
+	var rawResponse json.RawMessage
+
+	options := callMethodOptions{
+		Method:  fiber.MethodPost,
+		BaseURL: method,
+		In:      params,
+		Out:     &rawResponse,
+		Params:  nil,
+	}
+
+	if err := b24.callMethod(options); err != nil {
+		return nil, err
+	}
+
+	return rawResponse, nil
 }

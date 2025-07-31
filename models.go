@@ -11,6 +11,7 @@ type API struct {
 	ClientSecret string
 	Domain       string
 	Auth         string
+	WebhookURL   string
 	Debug        bool
 	// FallbackAuth is a function designed to handle cases of Access Denied errors.
 	FallbackRefreshToken string
