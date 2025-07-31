@@ -31,7 +31,7 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 	url := b24.buildURL(options.BaseURL, options.Params)
 	b24.log("Request URL:", url)
 
-  reader := &bytes.Reader{}
+	reader := &bytes.Reader{}
 
 	//добавлено для поиска по username
 	if options.Params != nil && (options.Params.Filter != nil || options.Params.Select != nil) {
@@ -205,7 +205,7 @@ func (b24 *API) CustomMethod(method string, params interface{}) ([]byte, error) 
 	var rawResponse json.RawMessage
 
 	options := callMethodOptions{
-		Method:  fiber.MethodPost,
+		Method:  http.MethodPost,
 		BaseURL: method,
 		In:      params,
 		Out:     &rawResponse,
