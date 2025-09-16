@@ -36,6 +36,7 @@ type UpdatedTokens struct {
 type RequestParams struct {
 	// Update Token
 	RefreshToken string `json:"refresh_token,omitempty"`
+	GrantType    string `json:"grant_type,omitempty"`
 
 	// Entity ID
 	ID           string `json:"ID,omitempty"`

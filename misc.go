@@ -154,7 +154,7 @@ func (b24 *API) buildURL(method string, params *RequestParams) string {
 	if params != nil && params.RefreshToken != "" {
 		u.Path = oAuthToken
 		query.Set("refresh_token", params.RefreshToken)
-		query.Set("grant_type", "refresh_token")
+		query.Set("grant_type", params.GrantType)
 		query.Set("client_id", b24.ClientID)
 		query.Set("client_secret", b24.ClientSecret)
 	}
