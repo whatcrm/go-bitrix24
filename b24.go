@@ -2,6 +2,7 @@ package b24
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
 )
@@ -10,6 +11,7 @@ func NewAPI(clientID, clientSecret string) *API {
 	return &API{
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
+		client:       &http.Client{},
 	}
 }
 
@@ -24,6 +26,7 @@ func NewWebhook(host string) (*API, error) {
 
 	return &API{
 		WebhookURL: host,
+		client:     &http.Client{},
 	}, nil
 }
 
@@ -43,6 +46,27 @@ func (b24 *API) SetFallback(fallbackRefresh string) {
 	b24.FallbackRefreshToken = fallbackRefresh
 }
 
-func (b24 *API) SetProxy(proxy string) {
-	b24.Proxy = proxy
+func (b24 *API) SetProxy(proxy string) error {
+	if proxy == "" {
+		b24.client.Transport = http.DefaultTransport.(*http.Transport).Clone()
+		return nil
+	}
+
+	proxyURL, err := url.Parse(proxy)
+	if err != nil {
+		return err
+	}
+
+	tr := http.DefaultTransport.(*http.Transport).Clone()
+	tr.Proxy = http.ProxyURL(proxyURL)
+
+	b24.client.Transport = tr
+	return nil
+}
+
+func (b24 *API) Close() {
+	if tr, ok := b24.client.Transport.(*http.Transport); ok {
+		tr.CloseIdleConnections()
+	}
+	b24.client = nil
 }

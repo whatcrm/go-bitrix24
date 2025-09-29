@@ -1,6 +1,8 @@
 package b24
 
 import (
+	"net/http"
+
 	"github.com/whatcrm/go-bitrix24/models"
 )
 
@@ -15,8 +17,7 @@ type API struct {
 	Debug        bool
 	// FallbackAuth is a function designed to handle cases of Access Denied errors.
 	FallbackRefreshToken string
-	// Proxy defines a proxy link if required.
-	Proxy string
+	client               *http.Client
 }
 
 // The tokens' struct
@@ -36,6 +37,7 @@ type UpdatedTokens struct {
 type RequestParams struct {
 	// Update Token
 	RefreshToken string `json:"refresh_token,omitempty"`
+	GrantType    string `json:"grant_type,omitempty"`
 
 	// Entity ID
 	ID           string `json:"ID,omitempty"`
