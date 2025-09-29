@@ -14,20 +14,6 @@ import (
 )
 
 func (b24 *API) callMethod(options callMethodOptions) error {
-	client := &http.Client{}
-
-	if b24.Proxy != "" {
-		b24.log("setting the proxy...")
-		proxyURL, err := url.Parse(b24.Proxy)
-		if err != nil {
-			return err
-		}
-
-		client.Transport = &http.Transport{
-			Proxy: http.ProxyURL(proxyURL),
-		}
-	}
-
 	url := b24.buildURL(options.BaseURL, options.Params)
 	b24.log("Request URL:", url)
 
@@ -62,7 +48,7 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 	req.Header.Set("Authorization", "Bearer "+b24.Auth)
 
 	b24.log("sending the data...")
-	resp, err := client.Do(req)
+	resp, err := b24.client.Do(req)
 	if err != nil {
 		b24.log("Request failed: ", err)
 		return err
