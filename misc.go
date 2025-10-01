@@ -2,6 +2,7 @@ package b24
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -38,17 +39,18 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 		reader = r
 	}
 
-	req, err := http.NewRequest(options.Method, url, reader)
+	ctx, _ := b24.WithProxy()
+
+	req, err := http.NewRequestWithContext(ctx, options.Method, url, reader)
 	if err != nil {
 		return err
 	}
 
-	req.Header.Set("Connection", "close")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+b24.Auth)
 
 	b24.log("sending the data...")
-	resp, err := b24.client.Do(req)
+	resp, err := sharedClient.Do(req)
 	if err != nil {
 		b24.log("Request failed: ", err)
 		return err
@@ -78,6 +80,20 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 
 	b24.log("unmarshal passed")
 	return nil
+}
+
+func (b24 *API) WithProxy() (context.Context, error) {
+	ctx := context.Background()
+	if b24.Proxy == "" {
+		return ctx, nil
+	}
+
+	u, err := url.Parse(b24.Proxy)
+	if err != nil {
+		b24.log("Failed to parse proxy URL:", b24.Proxy, "error:", err)
+		return ctx, nil
+	}
+	return context.WithValue(ctx, proxyKey{}, u), nil
 }
 
 func statusChecker(status int) error {

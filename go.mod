@@ -1,6 +1,6 @@
 module github.com/whatcrm/go-bitrix24
 
-go 1.20
+go 1.25
 
 require github.com/gofiber/fiber/v2 v2.43.0
 

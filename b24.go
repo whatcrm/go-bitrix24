@@ -5,13 +5,38 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
+
+var sharedTransport = &http.Transport{
+	TLSHandshakeTimeout: 10 * time.Second,
+	MaxIdleConns:        100,
+	IdleConnTimeout:     90 * time.Second,
+}
+
+var sharedClient = &http.Client{
+	Transport: sharedTransport,
+	Timeout:   60 * time.Second,
+}
+
+type proxyKey struct{}
+
+func init() {
+	sharedTransport.Proxy = func(req *http.Request) (*url.URL, error) {
+		if v := req.Context().Value(proxyKey{}); v != nil {
+			if u, ok := v.(*url.URL); ok {
+				return u, nil
+			}
+		}
+		return nil, nil // no proxy
+	}
+}
 
 func NewAPI(clientID, clientSecret string) *API {
 	return &API{
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
-		client:       &http.Client{},
+		client:       sharedClient,
 	}
 }
 
@@ -46,27 +71,17 @@ func (b24 *API) SetFallback(fallbackRefresh string) {
 	b24.FallbackRefreshToken = fallbackRefresh
 }
 
-func (b24 *API) SetProxy(proxy string) error {
-	if proxy == "" {
-		b24.client.Transport = http.DefaultTransport.(*http.Transport).Clone()
-		return nil
-	}
+func (b24 *API) SetProxy(proxy string) {
+	b24.Proxy = proxy
+	return
+}
 
-	proxyURL, err := url.Parse(proxy)
-	if err != nil {
-		return err
-	}
-
-	tr := http.DefaultTransport.(*http.Transport).Clone()
-	tr.Proxy = http.ProxyURL(proxyURL)
-
-	b24.client.Transport = tr
-	return nil
+func (b24 *API) SetTimeout(d time.Duration) {
+	sharedClient.Timeout = d
 }
 
 func (b24 *API) Close() {
 	if tr, ok := b24.client.Transport.(*http.Transport); ok {
 		tr.CloseIdleConnections()
 	}
-	b24.client = nil
 }
