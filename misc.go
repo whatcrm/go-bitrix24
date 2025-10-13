@@ -41,6 +41,8 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 
 	ctx, _ := b24.WithProxy()
 
+	var fallbackOnce bool
+retry:
 	req, err := http.NewRequestWithContext(ctx, options.Method, url, reader)
 	if err != nil {
 		return err
@@ -62,11 +64,17 @@ func (b24 *API) callMethod(options callMethodOptions) error {
 		return err
 	}
 
-	b24.log(string(body))
+	maxChar := 1024
+	if len(body) < maxChar {
+		maxChar = len(body)
+	}
+	b24.log(string(body[:maxChar]))
 
 	err = b24.errorCheck(body, resp.StatusCode, options)
-	if err != nil && (strings.Contains(err.Error(), AccessDenied) || strings.Contains(err.Error(), UnableToGetApplicationByToken)) && b24.fallback() {
-		return b24.callMethod(options)
+	if err != nil && (strings.Contains(err.Error(), AccessDenied) || strings.Contains(err.Error(), UnableToGetApplicationByToken)) &&
+		b24.fallback() && !fallbackOnce {
+		fallbackOnce = true
+		goto retry
 	}
 
 	if err != nil {
